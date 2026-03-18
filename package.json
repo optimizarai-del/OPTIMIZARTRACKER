@@ -1,0 +1,8 @@
+{
+  "name": "optimizar-tracker",
+  "version": "1.0.0",
+  "description": "Optimizar Tracker — Sistema de horas y produccion",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "express": "^4.18.2" }
+}
