@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>optimizar â tracker admin</title>
+  <title>optimizar - tracker admin</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tracker-style.css">
@@ -14,7 +14,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <header class="glass-container top-nav">
   <div class="logo-area">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="36" height="36"
@@ -41,47 +40,41 @@
 
 <div class="admin-layout">
 
-  <!-- SIDEBAR -->
   <nav class="glass-container admin-sidebar">
-    <button class="sidebar-btn active" id="btn-dashboard" onclick="switchView('dashboard')">ð dashboard</button>
-    <button class="sidebar-btn" id="btn-usuarios" onclick="switchView('usuarios')">ð¥ usuarios</button>
-    <button class="sidebar-btn" id="btn-proyectos" onclick="switchView('proyectos')">ð proyectos</button>
-    <button class="sidebar-btn" id="btn-detalle" onclick="switchView('detalle')" style="display:none;">ð detalle usuario</button>
-    <button class="sidebar-btn" id="btn-mi-tracker" onclick="window.location.href='tracker-dashboard.html'">â± mi tracker</button>
+    <button class="sidebar-btn active" id="btn-dashboard" onclick="switchView('dashboard')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-pink);display:inline-block;margin-right:8px;"></span>dashboard
+    </button>
+    <button class="sidebar-btn" id="btn-usuarios" onclick="switchView('usuarios')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-blue);display:inline-block;margin-right:8px;"></span>usuarios
+    </button>
+    <button class="sidebar-btn" id="btn-proyectos" onclick="switchView('proyectos')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-purple);display:inline-block;margin-right:8px;"></span>proyectos
+    </button>
+    <button class="sidebar-btn" id="btn-detalle" onclick="switchView('detalle')" style="display:none;">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-blue);display:inline-block;margin-right:8px;"></span>detalle usuario
+    </button>
+    <button class="sidebar-btn" id="btn-mi-tracker" onclick="window.location.href='tracker-dashboard.html'">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);display:inline-block;margin-right:8px;"></span>mi tracker
+    </button>
   </nav>
 
   <div class="admin-content">
 
-    <!-- ââââââââââââââ VISTA DASHBOARD ââââââââââââââ -->
+    <!-- VISTA DASHBOARD -->
     <div id="view-dashboard">
-
-      <!-- Stats -->
       <div class="stats-row">
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">horas totales hoy</div>
-          <div class="stat-value" id="stat-hoy">â</div>
-        </div>
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">horas esta semana</div>
-          <div class="stat-value" id="stat-semana">â</div>
-        </div>
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">usuarios activos</div>
-          <div class="stat-value" id="stat-usuarios">â</div>
-        </div>
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">avances registrados</div>
-          <div class="stat-value" id="stat-avances">â</div>
-        </div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">horas totales hoy</div><div class="stat-value" id="stat-hoy">-</div></div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">horas esta semana</div><div class="stat-value" id="stat-semana">-</div></div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">usuarios activos</div><div class="stat-value" id="stat-usuarios">-</div></div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">avances registrados</div><div class="stat-value" id="stat-avances">-</div></div>
       </div>
 
-      <!-- GrÃ¡fico multi-usuario -->
       <div class="glass-container chart-section">
         <div class="chart-section-header" style="flex-wrap:wrap;gap:12px;">
-          <h3 style="color:var(--accent-pink);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">â± horas por usuario / dÃ­a</h3>
+          <h3 style="color:var(--accent-pink);font-size:0.85rem;text-transform:lowercase;">horas por usuario / dia</h3>
           <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
             <input type="date" id="admin-from" class="glass-input" style="width:130px;font-size:0.8rem;padding:6px 10px;">
-            <span style="color:var(--text-secondary);font-size:0.8rem;">â</span>
+            <span style="color:var(--text-secondary);font-size:0.8rem;">a</span>
             <input type="date" id="admin-to" class="glass-input" style="width:130px;font-size:0.8rem;padding:6px 10px;">
           </div>
         </div>
@@ -90,105 +83,79 @@
         <div class="chart-legend" id="admin-legend"></div>
       </div>
 
-      <!-- GrÃ¡fico por proyecto (desglose) -->
       <div class="glass-container chart-section">
-        <h3 style="color:var(--accent-purple);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;margin-bottom:10px;">ð horas por proyecto</h3>
+        <h3 style="color:var(--accent-purple);font-size:0.85rem;text-transform:lowercase;margin-bottom:10px;">horas por proyecto</h3>
         <div class="chart-legend" id="admin-project-legend" style="margin-bottom:10px;"></div>
         <div class="chart-wrap" style="height:220px;"><canvas id="adminProjectChart"></canvas></div>
       </div>
 
-      <!-- Detalle dÃ­a (al clickear en el grÃ¡fico) -->
       <div class="glass-container day-detail-card" id="admin-day-detail" style="display:none;">
         <div class="day-detail-header">
           <h3 id="admin-day-title" style="color:var(--accent-pink);"></h3>
-          <button onclick="document.getElementById('admin-day-detail').style.display='none'"
-            class="btn-optimizar" style="padding:5px 14px;font-size:0.8rem;">â cerrar</button>
+          <button type="button" onclick="document.getElementById('admin-day-detail').style.display='none'"
+            class="btn-optimizar" style="padding:5px 14px;font-size:0.8rem;">cerrar</button>
         </div>
         <div id="admin-day-content"></div>
       </div>
     </div>
 
-    <!-- ââââââââââââââ VISTA USUARIOS ââââââââââââââ -->
+    <!-- VISTA USUARIOS -->
     <div id="view-usuarios" style="display:none;">
       <div class="glass-container" style="padding:24px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
-          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">ð¥ gestiÃ³n de usuarios</h3>
-          <button class="btn-optimizar btn-primary" style="padding:8px 20px;font-size:0.85rem;" onclick="openUserModal()">+ nuevo usuario</button>
+          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;">gestion de usuarios</h3>
+          <button type="button" class="btn-optimizar btn-primary" style="padding:8px 20px;font-size:0.85rem;" onclick="openUserModal()">+ nuevo usuario</button>
         </div>
         <div style="overflow-x:auto;">
           <table class="users-table">
-            <thead>
-              <tr>
-                <th>nombre</th>
-                <th>email</th>
-                <th>rol</th>
-                <th>Ãºltimo turno</th>
-                <th>horas totales</th>
-                <th>avances</th>
-                <th>acciones</th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th>nombre</th><th>email</th><th>rol</th>
+              <th>ultimo turno</th><th>horas</th><th>avances</th><th>acciones</th>
+            </tr></thead>
             <tbody id="users-tbody"></tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ââââââââââââââ VISTA DETALLE USUARIO ââââââââââââââ -->
-    <!-- ââââââââââââââ VISTA PROYECTOS ââââââââââââââ -->
+    <!-- VISTA PROYECTOS -->
     <div id="view-proyectos" style="display:none;">
       <div class="glass-container" style="padding:24px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
-          <h3 style="color:var(--accent-purple);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">ð gestiÃ³n de proyectos</h3>
-          <button class="btn-optimizar" style="padding:8px 20px;font-size:0.85rem;background:rgba(167,139,250,0.2);border-color:var(--accent-purple);" onclick="openProjectModal()">+ nuevo proyecto</button>
+          <h3 style="color:var(--accent-purple);font-size:0.85rem;text-transform:lowercase;">gestion de proyectos</h3>
+          <button type="button" class="btn-optimizar" onclick="openProjectModal()"
+            style="padding:8px 20px;font-size:0.85rem;background:rgba(167,139,250,0.2);border-color:var(--accent-purple);">
+            + nuevo proyecto
+          </button>
         </div>
         <div id="projects-list" style="display:flex;flex-direction:column;gap:12px;"></div>
       </div>
     </div>
 
+    <!-- VISTA DETALLE USUARIO -->
     <div id="view-detalle" style="display:none;">
-
-      <!-- Header -->
       <div class="glass-container" style="padding:20px 24px;margin-bottom:20px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
           <div>
             <h2 id="detalle-nombre" style="color:var(--accent-blue);font-size:1.2rem;margin:0;font-weight:700;"></h2>
             <p id="detalle-email" style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px;"></p>
           </div>
-          <button onclick="switchView('usuarios')" class="btn-optimizar" style="padding:7px 18px;font-size:0.82rem;">â volver</button>
+          <button type="button" onclick="switchView('usuarios')" class="btn-optimizar" style="padding:7px 18px;font-size:0.82rem;">volver</button>
         </div>
       </div>
-
-      <!-- Stats individuales -->
       <div class="stats-row" style="margin-bottom:20px;">
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">horas totales</div>
-          <div class="stat-value" id="d-total-horas">â</div>
-        </div>
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">dÃ­as trabajados</div>
-          <div class="stat-value" id="d-dias">â</div>
-        </div>
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">avances totales</div>
-          <div class="stat-value" id="d-avances">â</div>
-        </div>
-        <div class="glass-container stat-card-admin">
-          <div class="stat-label">promedio diario</div>
-          <div class="stat-value" id="d-promedio">â</div>
-        </div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">horas totales</div><div class="stat-value" id="d-total-horas">-</div></div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">dias trabajados</div><div class="stat-value" id="d-dias">-</div></div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">avances totales</div><div class="stat-value" id="d-avances">-</div></div>
+        <div class="glass-container stat-card-admin"><div class="stat-label">promedio diario</div><div class="stat-value" id="d-promedio">-</div></div>
       </div>
-
-      <!-- GrÃ¡fico individual -->
       <div class="glass-container chart-section" style="margin-bottom:20px;">
-        <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;margin-bottom:14px;">â± horas por dÃ­a</h3>
+        <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;margin-bottom:14px;">horas por dia</h3>
         <div class="chart-wrap" style="height:200px;"><canvas id="detalleChart"></canvas></div>
       </div>
-
-      <!-- Historial de turnos -->
       <div class="glass-container" style="padding:24px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;">ð historial de turnos</h3>
+          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;">historial de turnos</h3>
           <select id="detalle-mes-filter" class="glass-input" style="width:170px;font-size:0.82rem;padding:6px 10px;" onchange="filterDetalleMes()">
             <option value="">todos los meses</option>
           </select>
@@ -200,766 +167,525 @@
   </div>
 </div>
 
-<!-- MODAL NUEVO USUARIO -->
+<!-- MODAL USUARIO -->
 <div id="user-modal" class="modal-overlay" style="display:none;align-items:center;">
   <div class="glass-container modal-card" style="border-radius:16px;">
     <div class="modal-header">
       <h3 style="color:var(--accent-blue);">nuevo usuario</h3>
-      <button onclick="closeUserModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">â</button>
+      <button type="button" onclick="closeUserModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">cerrar</button>
     </div>
-    <div class="form-group">
-      <label class="input-label">nombre completo</label>
-      <input type="text" id="u-name" class="glass-input" placeholder="Nombre Apellido">
-    </div>
-    <div class="form-group">
-      <label class="input-label">correo electrÃ³nico</label>
-      <input type="email" id="u-email" class="glass-input" placeholder="nombre@empresa.com">
-    </div>
-    <div class="form-group">
-      <label class="input-label">contraseÃ±a temporal</label>
-      <input type="text" id="u-password" class="glass-input" value="Optimizar123">
-    </div>
+    <div class="form-group"><label class="input-label">nombre completo</label><input type="text" id="u-name" class="glass-input" placeholder="Nombre Apellido"></div>
+    <div class="form-group"><label class="input-label">correo electronico</label><input type="email" id="u-email" class="glass-input" placeholder="nombre@empresa.com"></div>
+    <div class="form-group"><label class="input-label">contrasena temporal</label><input type="text" id="u-password" class="glass-input" value="Optimizar123"></div>
     <div class="form-group">
       <label class="input-label">rol</label>
-      <select id="u-role" class="glass-input">
-        <option value="user">usuario</option>
-        <option value="admin">administrador</option>
-      </select>
+      <select id="u-role" class="glass-input"><option value="user">usuario</option><option value="admin">administrador</option></select>
     </div>
     <div id="user-modal-error" class="auth-error" style="display:none;"></div>
     <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;">
-      <button onclick="closeUserModal()" class="btn-optimizar" style="padding:10px 20px;">cancelar</button>
-      <button onclick="createUser()" class="btn-optimizar btn-primary" style="padding:10px 24px;" id="create-user-btn">crear usuario</button>
+      <button type="button" onclick="closeUserModal()" class="btn-optimizar" style="padding:10px 20px;">cancelar</button>
+      <button type="button" onclick="createUser()" id="create-user-btn" class="btn-optimizar btn-primary" style="padding:10px 24px;">crear usuario</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL NUEVO PROYECTO -->
+<!-- MODAL PROYECTO -->
 <div id="project-modal" class="modal-overlay" style="display:none;align-items:center;">
-  <div class="glass-container modal-card" style="border-radius:16px;">
+  <div class="glass-container modal-card" style="border-radius:16px;max-width:480px;">
     <div class="modal-header">
       <h3 style="color:var(--accent-purple);">nuevo proyecto</h3>
-      <button onclick="closeProjectModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">â</button>
+      <button type="button" onclick="closeProjectModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">cerrar</button>
     </div>
-    <div class="form-group">
-      <label class="input-label" style="color:var(--accent-purple);">nombre del proyecto</label>
-      <input type="text" id="p-name" class="glass-input" placeholder="ej: Desarrollo Web, Soporte Cliente...">
-    </div>
-    <div class="form-group">
-      <label class="input-label" style="color:var(--accent-purple);">descripciÃ³n (opcional)</label>
-      <textarea id="p-desc" class="glass-input" rows="2" placeholder="Breve descripciÃ³n..."></textarea>
-    </div>
+    <div class="form-group"><label class="input-label" style="color:var(--accent-purple);">nombre *</label><input type="text" id="p-name" class="glass-input" placeholder="ej: Desarrollo Web, Soporte..."></div>
+    <div class="form-group"><label class="input-label" style="color:var(--accent-purple);">descripcion (opcional)</label><textarea id="p-desc" class="glass-input" rows="2" placeholder="Descripcion breve..."></textarea></div>
     <div class="form-group">
       <label class="input-label" style="color:var(--accent-purple);">color</label>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-        <input type="color" id="p-color" value="#38bdf8" style="width:44px;height:36px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;background:none;cursor:pointer;padding:2px;">
-        <div id="color-presets" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+      <div id="color-presets-container" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <input type="color" id="p-color" value="#38bdf8" style="width:40px;height:32px;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:none;cursor:pointer;padding:2px;">
+        <span style="font-size:0.78rem;color:var(--text-secondary);">color personalizado</span>
       </div>
     </div>
     <div id="project-modal-error" class="auth-error" style="display:none;"></div>
-    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;">
-      <button onclick="closeProjectModal()" class="btn-optimizar" style="padding:10px 20px;">cancelar</button>
-      <button onclick="saveProject()" class="btn-optimizar" style="padding:10px 24px;background:rgba(167,139,250,0.25);border-color:var(--accent-purple);" id="save-project-btn">crear proyecto</button>
+    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:16px;">
+      <button type="button" onclick="closeProjectModal()" class="btn-optimizar" style="padding:10px 20px;">cancelar</button>
+      <button type="button" onclick="saveProject()" id="save-project-btn"
+        class="btn-optimizar" style="padding:10px 28px;background:rgba(167,139,250,0.25);border-color:var(--accent-purple);">crear proyecto</button>
     </div>
   </div>
 </div>
 
 <script>
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// INIT
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// Variables globales declaradas antes del await
-let session = null;
-let sb = null;
-let adminChart = null;
-let detalleChart = null;
-let allShifts = [];
-let allUsers = [];
-let selectedUserIds = new Set();
-let detalleAllShifts = [];
+// -- Variables globales -------------------------------------------------------
+var session            = null;
+var sb                 = null;
+var adminChart         = null;
+var adminProjectChart  = null;
+var detalleChart       = null;
+var allShifts          = [];
+var allUsers           = [];
+var allProjects        = [];
+var selectedUserIds    = new Set();
+var detalleAllShifts   = [];
 
-// InicializaciÃ³n async â refresca el rol desde Supabase antes de continuar
-(async () => {
+var chartColors         = ['#38bdf8','#f472b6','#a78bfa','#34d399','#fbbf24','#fb7185','#60a5fa','#c084fc','#f43f5e','#818cf8'];
+var projectColorPresets = ['#38bdf8','#f472b6','#a78bfa','#34d399','#fbbf24','#fb7185','#60a5fa','#f97316','#2dd4bf','#e879f9'];
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+// -- INIT ---------------------------------------------------------------------
+(async function init() {
   session = await requireTrackerAuth(['admin']);
-  if (!session) return; // requireTrackerAuth ya redirigiÃ³ si no es admin
+  if (!session) return;
   sb = getSupabase();
-  document.getElementById('admin-greeting').textContent = `hola, ${session.name.split(' ')[0].toLowerCase()} ð`;
-  initAdmin();
+  document.getElementById('admin-greeting').textContent = 'hola, ' + session.name.split(' ')[0].toLowerCase();
+
+  document.getElementById('admin-from').addEventListener('change', renderAdminChart);
+  document.getElementById('admin-to').addEventListener('change', renderAdminChart);
+
+  var toDate = new Date(), fromDate = new Date();
+  fromDate.setDate(fromDate.getDate() - 30);
+  document.getElementById('admin-from').value = fromDate.toISOString().split('T')[0];
+  document.getElementById('admin-to').value   = toDate.toISOString().split('T')[0];
+
+  loadDashboard();
 })();
 
-function initAdmin() {
-
-const chartColors = ['#38bdf8','#f472b6','#a78bfa','#34d399','#fbbf24','#fb7185','#60a5fa','#c084fc','#f43f5e','#818cf8'];
-const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// VISTAS
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// -- VISTAS -------------------------------------------------------------------
 function switchView(view) {
-  ['dashboard', 'usuarios', 'proyectos', 'detalle'].forEach(v => {
-    const el = document.getElementById('view-' + v);
-    if (el) el.style.display = v === view ? 'block' : 'none';
-    const btn = document.getElementById('btn-' + v);
-    if (btn) btn.classList.toggle('active', v === view);
+  ['dashboard','usuarios','proyectos','detalle'].forEach(function(v) {
+    var el  = document.getElementById('view-' + v);
+    var btn = document.getElementById('btn-'  + v);
+    if (el)  el.style.display = (v === view) ? 'block' : 'none';
+    if (btn) { btn.classList.remove('active'); if (v === view) btn.classList.add('active'); }
   });
-  if (view === 'dashboard')  loadDashboard();
-  if (view === 'usuarios')   loadUsersTable();
-  if (view === 'proyectos')  loadProjects();
+  if (view === 'dashboard') loadDashboard();
+  if (view === 'usuarios')  loadUsersTable();
+  if (view === 'proyectos') loadProjects();
 }
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// DASHBOARD GLOBAL
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// -- DASHBOARD ----------------------------------------------------------------
 async function loadDashboard() {
-  const { data: shifts } = await sb
-    .from('tracker_shifts')
-    .select('*, tracker_users(name, avatar_color)')
-    .order('fecha', { ascending: true });
-  allShifts = shifts || [];
+  var r1 = await sb.from('tracker_shifts').select('*, tracker_users(name, avatar_color)').order('fecha');
+  allShifts = r1.data || [];
 
-  const { data: users } = await sb.from('tracker_users').select('*');
-  allUsers = users || [];
+  var r2 = await sb.from('tracker_users').select('*');
+  allUsers = r2.data || [];
 
-  const hoy = new Date().toISOString().split('T')[0];
-  const semStart = new Date();
-  semStart.setDate(semStart.getDate() - 7);
-  const semStr = semStart.toISOString().split('T')[0];
+  var r3 = await sb.from('tracker_projects').select('*').eq('active', true);
+  allProjects = r3.data || [];
 
-  const horasHoy = allShifts.filter(s => s.fecha === hoy).reduce((a, s) => a + s.total_horas, 0);
-  const horasSem = allShifts.filter(s => s.fecha >= semStr).reduce((a, s) => a + s.total_horas, 0);
-  const usuariosActivos = new Set(allShifts.filter(s => s.fecha >= semStr).map(s => s.user_id)).size;
-  const totalAvances = allShifts.reduce((a, s) => a + (s.entradas?.length || 0), 0);
+  var hoy     = new Date().toISOString().split('T')[0];
+  var semDate = new Date(); semDate.setDate(semDate.getDate() - 7);
+  var semStr  = semDate.toISOString().split('T')[0];
 
-  document.getElementById('stat-hoy').textContent = Math.round(horasHoy * 10) / 10 + 'h';
-  document.getElementById('stat-semana').textContent = Math.round(horasSem * 10) / 10 + 'h';
-  document.getElementById('stat-usuarios').textContent = usuariosActivos;
-  document.getElementById('stat-avances').textContent = totalAvances;
+  document.getElementById('stat-hoy').textContent      = Math.round(allShifts.filter(function(s){return s.fecha===hoy;}).reduce(function(a,s){return a+s.total_horas;},0)*10)/10 + 'h';
+  document.getElementById('stat-semana').textContent   = Math.round(allShifts.filter(function(s){return s.fecha>=semStr;}).reduce(function(a,s){return a+s.total_horas;},0)*10)/10 + 'h';
+  document.getElementById('stat-usuarios').textContent = new Set(allShifts.filter(function(s){return s.fecha>=semStr;}).map(function(s){return s.user_id;})).size;
+  document.getElementById('stat-avances').textContent  = allShifts.reduce(function(a,s){return a+(s.entradas?s.entradas.length:0);},0);
 
-  selectedUserIds = new Set(allUsers.map(u => u.id));
-  await loadProjects();
+  selectedUserIds = new Set(allUsers.map(function(u){return u.id;}));
   buildUserChips();
   renderAdminChart();
 }
 
-// ââ Chips de filtro âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// -- CHIPS FILTRO -------------------------------------------------------------
 function buildUserChips() {
-  const container = document.getElementById('user-filter-chips');
-  container.innerHTML = '';
+  var cont = document.getElementById('user-filter-chips');
+  cont.innerHTML = '';
 
-  const allChip = document.createElement('button');
-  allChip.className = 'filter-chip active';
-  allChip.id = 'chip-all';
-  allChip.textContent = 'todos';
-  allChip.onclick = () => {
+  var allBtn = document.createElement('button');
+  allBtn.type = 'button'; allBtn.className = 'filter-chip active'; allBtn.id = 'chip-all'; allBtn.textContent = 'todos';
+  allBtn.addEventListener('click', function() {
     if (selectedUserIds.size === allUsers.length) selectedUserIds.clear();
-    else allUsers.forEach(u => selectedUserIds.add(u.id));
-    updateChips();
-    renderAdminChart();
-  };
-  container.appendChild(allChip);
+    else allUsers.forEach(function(u){selectedUserIds.add(u.id);});
+    updateChips(); renderAdminChart();
+  });
+  cont.appendChild(allBtn);
 
-  allUsers.forEach((u, i) => {
-    const chip = document.createElement('button');
-    chip.className = 'filter-chip active';
-    chip.id = 'chip-' + u.id;
+  allUsers.forEach(function(u, i) {
+    var color = chartColors[i % chartColors.length];
+    var chip  = document.createElement('button');
+    chip.type = 'button'; chip.className = 'filter-chip active'; chip.id = 'chip-'+u.id;
     chip.textContent = u.name.split(' ')[0].toLowerCase();
-    chip.style.borderColor = chartColors[i % chartColors.length];
-    chip.onclick = () => {
-      selectedUserIds.has(u.id) ? selectedUserIds.delete(u.id) : selectedUserIds.add(u.id);
-      updateChips();
-      renderAdminChart();
-    };
-    container.appendChild(chip);
+    chip.style.borderColor = color;
+    chip.addEventListener('click', function() {
+      if (selectedUserIds.has(u.id)) selectedUserIds.delete(u.id); else selectedUserIds.add(u.id);
+      updateChips(); renderAdminChart();
+    });
+    cont.appendChild(chip);
   });
 }
 
 function updateChips() {
-  allUsers.forEach(u => {
-    const c = document.getElementById('chip-' + u.id);
-    if (c) c.classList.toggle('active', selectedUserIds.has(u.id));
+  allUsers.forEach(function(u) {
+    var c = document.getElementById('chip-'+u.id);
+    if (c) { c.classList.remove('active'); if (selectedUserIds.has(u.id)) c.classList.add('active'); }
   });
-  const ac = document.getElementById('chip-all');
-  if (ac) ac.classList.toggle('active', selectedUserIds.size === allUsers.length);
+  var a = document.getElementById('chip-all');
+  if (a) { a.classList.remove('active'); if (selectedUserIds.size===allUsers.length) a.classList.add('active'); }
 }
 
-// ââ GrÃ¡fico multi-usuario âââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// -- GRAFICO USUARIOS ---------------------------------------------------------
 function renderAdminChart() {
-  const from = document.getElementById('admin-from').value;
-  const to = document.getElementById('admin-to').value;
+  var from = document.getElementById('admin-from').value;
+  var to   = document.getElementById('admin-to').value;
 
-  let filtered = allShifts.filter(s => selectedUserIds.has(s.user_id));
-  if (from) filtered = filtered.filter(s => s.fecha >= from);
-  if (to) filtered = filtered.filter(s => s.fecha <= to);
+  var filtered = allShifts.filter(function(s){return selectedUserIds.has(s.user_id);});
+  if (from) filtered = filtered.filter(function(s){return s.fecha>=from;});
+  if (to)   filtered = filtered.filter(function(s){return s.fecha<=to;});
 
-  const masterDates = [...new Set(filtered.map(s => s.fecha))].sort();
-  const labels = masterDates.map(d => { const [y, m, day] = d.split('-'); return `${day}/${m}`; });
+  var dates = Array.from(new Set(filtered.map(function(s){return s.fecha;}))).sort();
+  var labels = dates.map(function(d){var p=d.split('-');return p[2]+'/'+p[1];});
 
-  const datasets = [];
-  const legend = document.getElementById('admin-legend');
-  legend.innerHTML = '';
+  var datasets = []; var legend = document.getElementById('admin-legend'); legend.innerHTML = '';
 
-  allUsers.filter(u => selectedUserIds.has(u.id)).forEach((u, idx) => {
-    const color = chartColors[idx % chartColors.length];
-    const byDate = {};
-    filtered.filter(s => s.user_id === u.id).forEach(s => {
-      byDate[s.fecha] = (byDate[s.fecha] || 0) + s.total_horas;
-    });
+  allUsers.filter(function(u){return selectedUserIds.has(u.id);}).forEach(function(u, idx) {
+    var color = chartColors[idx % chartColors.length];
+    var byDate = {};
+    filtered.filter(function(s){return s.user_id===u.id;}).forEach(function(s){byDate[s.fecha]=(byDate[s.fecha]||0)+s.total_horas;});
     datasets.push({
       label: u.name.split(' ')[0],
-      data: masterDates.map(d => Math.round((byDate[d] || 0) * 100) / 100),
-      borderColor: color, backgroundColor: 'transparent',
-      borderWidth: 2.5, pointBackgroundColor: color,
-      pointBorderColor: '#fff', pointBorderWidth: 2,
+      data: dates.map(function(d){return Math.round((byDate[d]||0)*100)/100;}),
+      borderColor: color, backgroundColor: 'transparent', borderWidth: 2.5,
+      pointBackgroundColor: color, pointBorderColor: '#fff', pointBorderWidth: 2,
       pointRadius: 4, pointHoverRadius: 7, tension: 0.3
     });
-
-    const li = document.createElement('div');
-    li.className = 'legend-item';
-    li.innerHTML = `<div class="legend-dot" style="background:${color}"></div><span>${u.name.split(' ')[0].toLowerCase()}</span>`;
-    li.onclick = () => {
-      const meta = adminChart.getDatasetMeta(idx);
-      meta.hidden = !meta.hidden;
-      adminChart.update();
-      li.classList.toggle('hidden');
-    };
+    var li = document.createElement('div'); li.className = 'legend-item';
+    li.innerHTML = '<div class="legend-dot" style="background:'+color+'"></div><span>'+u.name.split(' ')[0].toLowerCase()+'</span>';
+    li.addEventListener('click', function(){
+      var m = adminChart.getDatasetMeta(idx); m.hidden = !m.hidden; adminChart.update(); li.classList.toggle('hidden');
+    });
     legend.appendChild(li);
   });
 
   if (adminChart) adminChart.destroy();
-  Chart.defaults.color = 'rgba(255,255,255,0.65)';
-  Chart.defaults.font.family = "'Poppins', sans-serif";
+  Chart.defaults.color = 'rgba(255,255,255,0.65)'; Chart.defaults.font.family = "'Poppins', sans-serif";
   adminChart = new Chart(document.getElementById('adminChart').getContext('2d'), {
-    type: 'line',
-    data: { labels, datasets },
+    type: 'line', data: {labels:labels, datasets:datasets},
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          mode: 'index', intersect: false,
-          backgroundColor: 'rgba(15,23,42,0.95)',
-          titleColor: '#fff', bodyColor: '#fff',
-          borderColor: 'rgba(255,255,255,0.2)', borderWidth: 1,
-          callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}h` }
-        }
-      },
-      scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.05)' } },
-        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => v + 'h' } }
-      },
-      interaction: { mode: 'nearest', axis: 'x', intersect: false },
-      onClick: (e, els) => { if (els.length > 0) openAdminDayDetail(masterDates[els[0].index]); }
+      plugins: { legend:{display:false}, tooltip:{mode:'index',intersect:false,backgroundColor:'rgba(15,23,42,0.95)',titleColor:'#fff',bodyColor:'#fff',borderColor:'rgba(255,255,255,0.2)',borderWidth:1, callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'h';}}}},
+      scales: { x:{grid:{color:'rgba(255,255,255,0.05)'}}, y:{beginAtZero:true,grid:{color:'rgba(255,255,255,0.05)'},ticks:{callback:function(v){return v+'h';}}}},
+      interaction: {mode:'nearest',axis:'x',intersect:false},
+      onClick: function(e, els){if(els.length>0) openAdminDayDetail(dates[els[0].index]);}
     }
   });
 
-  // Renderizar tambiÃ©n el grÃ¡fico por proyecto
-  renderAdminProjectChart(allShifts);
+  renderAdminProjectChart(filtered);
 }
 
-// ââ Detalle de dÃ­a (click en grÃ¡fico) âââââââââââââââââââââââââââââââââââââââââ
-function openAdminDayDetail(dateStr) {
-  const [y, m, d] = dateStr.split('-');
-  document.getElementById('admin-day-title').textContent =
-    `${parseInt(d)} de ${MESES[parseInt(m) - 1]} ${y} â detalle por usuario`;
-
-  const dayShifts = allShifts.filter(s => s.fecha === dateStr && selectedUserIds.has(s.user_id));
-  const content = document.getElementById('admin-day-content');
-  content.innerHTML = '';
-
-  if (!dayShifts.length) {
-    content.innerHTML = '<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros para este dÃ­a.</p>';
-  } else {
-    dayShifts.forEach(shift => {
-      const userName = (shift.tracker_users?.name || 'Usuario').toLowerCase();
-      const div = document.createElement('div');
-      div.style.marginBottom = '16px';
-      div.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <h3 style="color:var(--accent-blue);font-size:0.9rem;">${userName}</h3>
-          <span class="entry-duration">${shift.total_horas}h â ${shift.entradas?.length || 0} avance(s)</span>
-        </div>
-        <div class="entries-list">
-          ${(shift.entradas || []).map(e => {
-            const t = new Date(e.timestamp);
-            return `<div class="entry-card">
-              <div class="entry-card-header">
-                <span class="entry-time">${t.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}</span>
-                <span class="entry-duration">${fmtTime(e.elapsedSecs || 0)}</span>
-              </div>
-              <p class="entry-desc">${e.desc}</p>
-              ${e.doubt ? `<div class="entry-doubt">${e.doubt}</div>` : ''}
-              ${(e.images || []).length ? `<div class="entry-img-grid">${e.images.map(s => `<img src="${s}" onclick="openLightbox('${s}')">`).join('')}</div>` : ''}
-            </div>`;
-          }).join('')}
-        </div>
-        <hr style="border-color:rgba(255,255,255,0.08);margin-top:14px;">
-      `;
-      content.appendChild(div);
-    });
-  }
-
-  const det = document.getElementById('admin-day-detail');
-  det.style.display = 'block';
-  det.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function fmtTime(secs) {
-  const h = Math.floor(secs / 3600);
-  const m = Math.floor((secs % 3600) / 60);
-  return h > 0 ? `${h}h ${m}m` : `${m}m`;
-}
-
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// TABLA DE USUARIOS
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-async function loadUsersTable() {
-  const { data: users } = await sb.from('tracker_users').select('*').order('name');
-  const { data: shifts } = await sb.from('tracker_shifts').select('user_id, fecha, total_horas, entradas');
-
-  const tbody = document.getElementById('users-tbody');
-  tbody.innerHTML = '';
-
-  (users || []).forEach(u => {
-    const uShifts = (shifts || []).filter(s => s.user_id === u.id);
-    const totalHoras = Math.round(uShifts.reduce((a, s) => a + s.total_horas, 0) * 10) / 10;
-    const totalAvances = uShifts.reduce((a, s) => a + (s.entradas?.length || 0), 0);
-    const sorted = [...uShifts].sort((a, b) => b.fecha.localeCompare(a.fecha));
-    const ultimo = sorted[0]?.fecha;
-    const fechaDisplay = ultimo ? ultimo.split('-').reverse().join('/') : 'â';
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td style="color:var(--text-primary);font-weight:600;">${u.name}</td>
-      <td style="font-size:0.82rem;">${u.email || 'â'}</td>
-      <td><span class="badge badge-${u.role}">${u.role}</span></td>
-      <td>${fechaDisplay}</td>
-      <td style="color:var(--accent-green);font-weight:700;">${totalHoras}h</td>
-      <td style="color:var(--text-secondary);">${totalAvances}</td>
-      <td style="display:flex;gap:6px;flex-wrap:wrap;">
-        <button class="btn-optimizar btn-primary" style="padding:4px 10px;font-size:0.75rem;"
-          onclick="verDetalle('${u.id}', '${u.name.replace(/'/g, "\\'")}', '${u.email}')">ver detalle</button>
-        <button class="btn-optimizar btn-danger" style="padding:4px 10px;font-size:0.75rem;"
-          onclick="deleteUser('${u.id}', '${u.name.replace(/'/g, "\\'")}')">eliminar</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// DETALLE DE USUARIO
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-async function verDetalle(userId, name, email) {
-  document.getElementById('detalle-nombre').textContent = name.toLowerCase();
-  document.getElementById('detalle-email').textContent = email;
-  document.getElementById('btn-detalle').style.display = 'block';
-  switchView('detalle');
-
-  const { data: shifts } = await sb
-    .from('tracker_shifts')
-    .select('*')
-    .eq('user_id', userId)
-    .order('fecha', { ascending: true });
-  detalleAllShifts = shifts || [];
-
-  const totalH = Math.round(detalleAllShifts.reduce((a, s) => a + s.total_horas, 0) * 10) / 10;
-  const dias = [...new Set(detalleAllShifts.map(s => s.fecha))].length;
-  const avances = detalleAllShifts.reduce((a, s) => a + (s.entradas?.length || 0), 0);
-  const prom = dias > 0 ? Math.round((totalH / dias) * 10) / 10 : 0;
-
-  document.getElementById('d-total-horas').textContent = totalH + 'h';
-  document.getElementById('d-dias').textContent = dias;
-  document.getElementById('d-avances').textContent = avances;
-  document.getElementById('d-promedio').textContent = prom + 'h';
-
-  // GrÃ¡fico individual
-  const byDate = {};
-  detalleAllShifts.forEach(s => { byDate[s.fecha] = (byDate[s.fecha] || 0) + s.total_horas; });
-  const dates = Object.keys(byDate).sort();
-  const labels = dates.map(d => d.split('-').reverse().slice(0, 2).join('/'));
-  const values = dates.map(d => Math.round(byDate[d] * 100) / 100);
-
-  if (detalleChart) detalleChart.destroy();
-  const ctx2 = document.getElementById('detalleChart').getContext('2d');
-  const grad = ctx2.createLinearGradient(0, 0, 0, 200);
-  grad.addColorStop(0, 'rgba(56,189,248,0.35)');
-  grad.addColorStop(1, 'rgba(56,189,248,0)');
-  detalleChart = new Chart(ctx2, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label: 'horas', data: values,
-        borderColor: '#38bdf8', backgroundColor: grad,
-        borderWidth: 2.5, pointBackgroundColor: '#38bdf8',
-        pointBorderColor: '#fff', pointRadius: 4, fill: true, tension: 0.4
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(15,23,42,0.95)',
-          titleColor: '#fff', bodyColor: '#38bdf8',
-          callbacks: { label: c => c.parsed.y + 'h' }
-        }
-      },
-      scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.05)' } },
-        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => v + 'h' } }
-      }
-    }
-  });
-
-  // Filtro de meses
-  const mesesSet = [...new Set(detalleAllShifts.map(s => s.fecha.slice(0, 7)))].sort().reverse();
-  const sel = document.getElementById('detalle-mes-filter');
-  sel.innerHTML = '<option value="">todos los meses</option>';
-  mesesSet.forEach(m => {
-    const [y, mo] = m.split('-');
-    sel.innerHTML += `<option value="${m}">${MESES[parseInt(mo) - 1]} ${y}</option>`;
-  });
-
-  renderDetalleShifts('');
-}
-
-function filterDetalleMes() {
-  renderDetalleShifts(document.getElementById('detalle-mes-filter').value);
-}
-
-function renderDetalleShifts(mesFilter) {
-  const filtered = mesFilter
-    ? detalleAllShifts.filter(s => s.fecha.startsWith(mesFilter))
-    : detalleAllShifts;
-  const sorted = [...filtered].sort((a, b) => b.fecha.localeCompare(a.fecha));
-  const container = document.getElementById('detalle-shifts-list');
-  container.innerHTML = '';
-
-  if (!sorted.length) {
-    container.innerHTML = '<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros para este perÃ­odo.</p>';
-    return;
-  }
-
-  sorted.forEach(shift => {
-    const fechaDisplay = shift.fecha.split('-').reverse().join('/');
-    const inicio = new Date(shift.inicio).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-    const fin = new Date(shift.fin).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-
-    const card = document.createElement('div');
-    card.className = 'glass-container';
-    card.style.cssText = 'padding:16px;cursor:pointer;transition:background 0.2s;';
-    card.onclick = () => {
-      const body = card.querySelector('.shift-body');
-      body.style.display = body.style.display === 'none' ? 'block' : 'none';
-    };
-
-    const entradas = (shift.entradas || []).map(e => {
-      const t = new Date(e.timestamp);
-      return `
-        <div class="entry-card">
-          <div class="entry-card-header">
-            <span class="entry-time">${t.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}</span>
-            <span class="entry-duration">${fmtTime(e.elapsedSecs || 0)}</span>
-          </div>
-          <p class="entry-desc">${e.desc}</p>
-          ${e.doubt ? `<div class="entry-doubt">${e.doubt}</div>` : ''}
-          ${(e.images || []).length
-            ? `<div class="entry-img-grid">${e.images.map(s => `<img src="${s}" onclick="event.stopPropagation();openLightbox('${s}')">`).join('')}</div>`
-            : ''}
-        </div>
-      `;
-    }).join('');
-
-    card.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="font-size:0.9rem;font-weight:700;color:var(--accent-blue);">${fechaDisplay}</span>
-          <span style="font-size:0.78rem;color:var(--text-secondary);">${inicio} â ${fin}</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:center;">
-          <span class="entry-duration">${shift.total_horas}h</span>
-          <span style="font-size:0.78rem;color:var(--text-secondary);">${shift.entradas?.length || 0} avance(s)</span>
-          <span style="font-size:0.72rem;color:rgba(255,255,255,0.3);">â¼</span>
-        </div>
-      </div>
-      <div class="shift-body entries-list" style="display:none;margin-top:14px;">${entradas}</div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// CREAR / ELIMINAR USUARIOS
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-function openUserModal() { document.getElementById('user-modal').style.display = 'flex'; }
-function closeUserModal() { document.getElementById('user-modal').style.display = 'none'; }
-
-async function createUser() {
-  const name = document.getElementById('u-name').value.trim();
-  const email = document.getElementById('u-email').value.trim();
-  const password = document.getElementById('u-password').value.trim();
-  const role = document.getElementById('u-role').value;
-  const errEl = document.getElementById('user-modal-error');
-  const btn = document.getElementById('create-user-btn');
-
-  errEl.style.display = 'none';
-  if (!name || !email || !password) {
-    errEl.textContent = 'CompletÃ¡ todos los campos.';
-    errEl.style.display = 'block';
-    return;
-  }
-
-  btn.textContent = 'creando...';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch('/api/tracker/create-user', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password, role })
-    });
-    const data = await res.json();
-    if (!data.success) {
-      errEl.textContent = data.message || 'Error al crear usuario.';
-      errEl.style.display = 'block';
-    } else {
-      showToast(`Usuario ${name} creado â`);
-      closeUserModal();
-      document.getElementById('u-name').value = '';
-      document.getElementById('u-email').value = '';
-      document.getElementById('u-password').value = 'Optimizar123';
-      loadUsersTable();
-    }
-  } catch (e) {
-    errEl.textContent = 'Error de red al crear usuario.';
-    errEl.style.display = 'block';
-  }
-
-  btn.textContent = 'crear usuario';
-  btn.disabled = false;
-}
-
-async function deleteUser(id, name) {
-  if (!confirm(`Â¿Eliminar a ${name}?\nSe borrarÃ¡n todos sus registros.`)) return;
-  await sb.from('tracker_shifts').delete().eq('user_id', id);
-  await sb.from('tracker_users').delete().eq('id', id);
-  await fetch(`/api/tracker/delete-user/${id}`, { method: 'DELETE' });
-  showToast(`${name} eliminado.`);
-  loadUsersTable();
-}
-
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// INIT â llamado desde initAdmin() despuÃ©s del await
-  document.getElementById('admin-from').addEventListener('change', renderAdminChart);
-  document.getElementById('admin-to').addEventListener('change', renderAdminChart);
-
-  const toDate = new Date();
-  const fromDate = new Date();
-  fromDate.setDate(fromDate.getDate() - 30);
-  document.getElementById('admin-from').value = fromDate.toISOString().split('T')[0];
-  document.getElementById('admin-to').value = toDate.toISOString().split('T')[0];
-
-  loadDashboard();
-} // cierre de initAdmin()
-
-// ââ GrÃ¡fico por proyecto (todos los usuarios) âââââââââââââââââââââââââââââââââ
-let adminProjectChart = null;
-
+// -- GRAFICO PROYECTOS --------------------------------------------------------
 function renderAdminProjectChart(shifts) {
-  const from = document.getElementById('admin-from').value;
-  const to   = document.getElementById('admin-to').value;
-
-  let filtered = shifts;
-  if (from) filtered = filtered.filter(s => s.fecha >= from);
-  if (to)   filtered = filtered.filter(s => s.fecha <= to);
-
-  // Agrupar por proyecto + fecha
-  const pmap = {};
-  filtered.forEach(row => {
-    const pid    = row.project_id || 'libre';
-    const pname  = row.project_name || 'Horas libres';
-    const pcolor = allProjects.find(p => p.id === row.project_id)?.color || '#94a3b8';
-    if (!pmap[pid]) pmap[pid] = { name: pname, color: pcolor, byDate: {} };
-    pmap[pid].byDate[row.fecha] = (pmap[pid].byDate[row.fecha] || 0) + row.total_horas;
+  var pmap = {};
+  shifts.forEach(function(row) {
+    var pid   = row.project_id || 'libre';
+    var pname = row.project_name || 'Horas libres';
+    var proj  = allProjects.find(function(p){return p.id===row.project_id;});
+    var pcolor = proj ? proj.color : '#94a3b8';
+    if (!pmap[pid]) pmap[pid] = {name:pname, color:pcolor, byDate:{}};
+    pmap[pid].byDate[row.fecha] = (pmap[pid].byDate[row.fecha]||0) + row.total_horas;
   });
 
-  const allDates = [...new Set(filtered.map(r => r.fecha))].sort();
-  const labels   = allDates.map(d => { const [,m,day] = d.split('-'); return `${day}/${m}`; });
+  var allDates = Array.from(new Set(shifts.map(function(r){return r.fecha;}))).sort();
+  var labels   = allDates.map(function(d){var p=d.split('-');return p[2]+'/'+p[1];});
+  var pvals    = Object.values(pmap);
 
-  const datasets = Object.values(pmap).map(info => ({
-    label:               info.name,
-    data:                allDates.map(d => Math.round((info.byDate[d] || 0) * 100) / 100),
-    borderColor:         info.color,
-    backgroundColor:     info.color + '33',
-    borderWidth:         2.5,
-    pointBackgroundColor: info.color,
-    pointBorderColor:    '#fff',
-    pointBorderWidth:    2,
-    pointRadius:         4,
-    pointHoverRadius:    7,
-    fill:                Object.keys(pmap).length === 1,
-    tension:             0.4
-  }));
+  var datasets = pvals.map(function(info){
+    return {
+      label: info.name,
+      data: allDates.map(function(d){return Math.round((info.byDate[d]||0)*100)/100;}),
+      borderColor: info.color, backgroundColor: info.color+'33', borderWidth: 2.5,
+      pointBackgroundColor: info.color, pointBorderColor: '#fff', pointBorderWidth: 2,
+      pointRadius: 4, pointHoverRadius: 7, fill: pvals.length===1, tension: 0.4
+    };
+  });
 
   if (adminProjectChart) adminProjectChart.destroy();
-  const canvas = document.getElementById('adminProjectChart');
-  if (!canvas) return;
-
-  Chart.defaults.color = 'rgba(255,255,255,0.65)';
-  Chart.defaults.font.family = "'Poppins', sans-serif";
+  var canvas = document.getElementById('adminProjectChart');
+  if (!canvas || !allDates.length) return;
 
   adminProjectChart = new Chart(canvas.getContext('2d'), {
-    type: 'line',
-    data: { labels, datasets },
+    type: 'line', data: {labels:labels, datasets:datasets},
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          mode: 'index', intersect: false,
-          backgroundColor: 'rgba(15,23,42,0.95)',
-          titleColor: '#fff', bodyColor: '#fff',
-          borderColor: 'rgba(255,255,255,0.2)', borderWidth: 1,
-          callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}h` }
-        }
-      },
-      scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.05)' } },
-        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => v + 'h' } }
-      },
-      interaction: { mode: 'nearest', axis: 'x', intersect: false }
+      plugins: { legend:{display:false}, tooltip:{mode:'index',intersect:false,backgroundColor:'rgba(15,23,42,0.95)',titleColor:'#fff',bodyColor:'#fff',borderColor:'rgba(255,255,255,0.2)',borderWidth:1, callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'h';}}}},
+      scales: { x:{grid:{color:'rgba(255,255,255,0.05)'}}, y:{beginAtZero:true,grid:{color:'rgba(255,255,255,0.05)'},ticks:{callback:function(v){return v+'h';}}}}
     }
   });
 
-  // Leyenda proyectos
-  const legend = document.getElementById('admin-project-legend');
-  if (!legend) return;
-  legend.innerHTML = '';
-  Object.values(pmap).forEach(info => {
-    const li = document.createElement('div'); li.className = 'legend-item';
-    li.innerHTML = `<div class="legend-dot" style="background:${info.color}"></div><span>${info.name.toLowerCase()}</span>`;
+  var legend = document.getElementById('admin-project-legend'); legend.innerHTML = '';
+  pvals.forEach(function(info){
+    var li = document.createElement('div'); li.className = 'legend-item';
+    li.innerHTML = '<div class="legend-dot" style="background:'+info.color+'"></div><span>'+info.name.toLowerCase()+'</span>';
     legend.appendChild(li);
   });
 }
 
+// -- DETALLE DIA --------------------------------------------------------------
+function openAdminDayDetail(dateStr) {
+  var p = dateStr.split('-');
+  document.getElementById('admin-day-title').textContent = parseInt(p[2])+' de '+MESES[parseInt(p[1])-1]+' '+p[0];
 
+  var dayShifts = allShifts.filter(function(s){return s.fecha===dateStr && selectedUserIds.has(s.user_id);});
+  var content   = document.getElementById('admin-day-content');
+  content.innerHTML = '';
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// PROYECTOS
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-let allProjects = [];
+  if (!dayShifts.length) {
+    content.innerHTML = '<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros para este dia.</p>';
+  } else {
+    dayShifts.forEach(function(shift) {
+      var uname = ((shift.tracker_users && shift.tracker_users.name) ? shift.tracker_users.name : 'Usuario').toLowerCase();
+      var div = document.createElement('div'); div.style.marginBottom = '16px';
+      div.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
+          '<h3 style="color:var(--accent-blue);font-size:0.9rem;">'+uname+'</h3>' +
+          '<span class="entry-duration">'+shift.total_horas+'h - '+(shift.entradas?shift.entradas.length:0)+' avance(s)</span>' +
+        '</div>' +
+        '<div class="entries-list">'+(shift.entradas||[]).map(function(e){
+          var t=new Date(e.timestamp);
+          return '<div class="entry-card">'+
+            '<div class="entry-card-header">'+
+              '<span class="entry-time">'+t.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})+'</span>'+
+              '<span class="entry-duration">'+fmtTime(e.elapsedSecs||0)+'</span>'+
+            '</div>'+
+            '<p class="entry-desc">'+e.desc+'</p>'+
+            (e.doubt?'<div class="entry-doubt">'+e.doubt+'</div>':'')+
+            ((e.images&&e.images.length)?'<div class="entry-img-grid">'+e.images.map(function(s){return '<img src="'+s+'" onclick="openLightbox(\''+s+'\')">'; }).join('')+'</div>':'')+
+          '</div>';
+        }).join('')+'</div>'+
+        '<hr style="border-color:rgba(255,255,255,0.08);margin-top:14px;">';
+      content.appendChild(div);
+    });
+  }
+  var det = document.getElementById('admin-day-detail');
+  det.style.display = 'block';
+  det.scrollIntoView({behavior:'smooth',block:'start'});
+}
 
-const PROJECT_COLORS = ['#38bdf8','#f472b6','#a78bfa','#34d399','#fbbf24','#fb7185','#60a5fa','#f97316','#2dd4bf','#e879f9'];
+function fmtTime(secs){var h=Math.floor(secs/3600),m=Math.floor((secs%3600)/60);return h>0?h+'h '+m+'m':m+'m';}
 
+// -- USUARIOS -----------------------------------------------------------------
+async function loadUsersTable() {
+  var r1 = await sb.from('tracker_users').select('*').order('name');
+  var r2 = await sb.from('tracker_shifts').select('user_id, fecha, total_horas, entradas');
+  var users=r1.data||[], shifts=r2.data||[];
+  var tbody = document.getElementById('users-tbody'); tbody.innerHTML='';
+
+  users.forEach(function(u) {
+    var uS = shifts.filter(function(s){return s.user_id===u.id;});
+    var th = Math.round(uS.reduce(function(a,s){return a+s.total_horas;},0)*10)/10;
+    var ta = uS.reduce(function(a,s){return a+(s.entradas?s.entradas.length:0);},0);
+    var ul = uS.sort(function(a,b){return b.fecha.localeCompare(a.fecha);})[0];
+    var fd = ul ? ul.fecha.split('-').reverse().join('/') : '-';
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td style="color:var(--text-primary);font-weight:600;">'+u.name+'</td>'+
+      '<td style="font-size:0.82rem;">'+(u.email||'-')+'</td>'+
+      '<td><span class="badge badge-'+u.role+'">'+u.role+'</span></td>'+
+      '<td>'+fd+'</td>'+
+      '<td style="color:var(--accent-green);font-weight:700;">'+th+'h</td>'+
+      '<td style="color:var(--text-secondary);">'+ta+'</td>'+
+      '<td style="display:flex;gap:6px;flex-wrap:wrap;">'+
+        '<button type="button" class="btn-optimizar btn-primary" style="padding:4px 10px;font-size:0.75rem;" '+
+          'onclick="verDetalle(\''+u.id+'\',\''+u.name.replace(/'/g,"\\'")+'\',' +'\''+u.email+'\')">ver detalle</button>'+
+        '<button type="button" class="btn-optimizar btn-danger" style="padding:4px 10px;font-size:0.75rem;" '+
+          'onclick="deleteUser(\''+u.id+'\',\''+u.name.replace(/'/g,"\\'")+'\')">eliminar</button>'+
+      '</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function openUserModal(){document.getElementById('user-modal').style.display='flex';}
+function closeUserModal(){document.getElementById('user-modal').style.display='none';}
+
+async function createUser() {
+  var name=document.getElementById('u-name').value.trim(),email=document.getElementById('u-email').value.trim();
+  var password=document.getElementById('u-password').value.trim(),role=document.getElementById('u-role').value;
+  var errEl=document.getElementById('user-modal-error'),btn=document.getElementById('create-user-btn');
+  errEl.style.display='none';
+  if(!name||!email||!password){errEl.textContent='Completa todos los campos.';errEl.style.display='block';return;}
+  btn.textContent='creando...';btn.disabled=true;
+  try{
+    var res=await fetch('/api/tracker/create-user',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,password:password,role:role})});
+    var data=await res.json();
+    if(!data.success){errEl.textContent=data.message||'Error al crear usuario.';errEl.style.display='block';}
+    else{showToast('Usuario '+name+' creado');closeUserModal();document.getElementById('u-name').value='';document.getElementById('u-email').value='';document.getElementById('u-password').value='Optimizar123';loadUsersTable();}
+  }catch(e){errEl.textContent='Error de red.';errEl.style.display='block';}
+  btn.textContent='crear usuario';btn.disabled=false;
+}
+
+async function deleteUser(id,name){
+  if(!confirm('Eliminar a '+name+'? Se borraran todos sus registros.'))return;
+  await sb.from('tracker_shifts').delete().eq('user_id',id);
+  await sb.from('tracker_users').delete().eq('id',id);
+  await fetch('/api/tracker/delete-user/'+id,{method:'DELETE'});
+  showToast(name+' eliminado.');loadUsersTable();
+}
+
+// -- DETALLE USUARIO ----------------------------------------------------------
+async function verDetalle(userId,name,email) {
+  document.getElementById('detalle-nombre').textContent=name.toLowerCase();
+  document.getElementById('detalle-email').textContent=email;
+  document.getElementById('btn-detalle').style.display='block';
+  switchView('detalle');
+
+  var r=await sb.from('tracker_shifts').select('*').eq('user_id',userId).order('fecha');
+  detalleAllShifts=r.data||[];
+
+  var th=Math.round(detalleAllShifts.reduce(function(a,s){return a+s.total_horas;},0)*10)/10;
+  var dias=new Set(detalleAllShifts.map(function(s){return s.fecha;})).size;
+  var av=detalleAllShifts.reduce(function(a,s){return a+(s.entradas?s.entradas.length:0);},0);
+  document.getElementById('d-total-horas').textContent=th+'h';
+  document.getElementById('d-dias').textContent=dias;
+  document.getElementById('d-avances').textContent=av;
+  document.getElementById('d-promedio').textContent=(dias>0?Math.round((th/dias)*10)/10:0)+'h';
+
+  var byDate={};
+  detalleAllShifts.forEach(function(s){byDate[s.fecha]=(byDate[s.fecha]||0)+s.total_horas;});
+  var dates=Object.keys(byDate).sort();
+  var labels=dates.map(function(d){return d.split('-').slice(1).reverse().join('/');});
+  var values=dates.map(function(d){return Math.round(byDate[d]*100)/100;});
+
+  if(detalleChart)detalleChart.destroy();
+  var ctx2=document.getElementById('detalleChart').getContext('2d');
+  var grad=ctx2.createLinearGradient(0,0,0,200);
+  grad.addColorStop(0,'rgba(56,189,248,0.35)');grad.addColorStop(1,'rgba(56,189,248,0)');
+  detalleChart=new Chart(ctx2,{type:'line',data:{labels:labels,datasets:[{label:'horas',data:values,borderColor:'#38bdf8',backgroundColor:grad,borderWidth:2.5,pointBackgroundColor:'#38bdf8',pointBorderColor:'#fff',pointRadius:4,fill:true,tension:0.4}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(15,23,42,0.95)',titleColor:'#fff',bodyColor:'#38bdf8',callbacks:{label:function(c){return c.parsed.y+'h';}}}},
+    scales:{x:{grid:{color:'rgba(255,255,255,0.05)'}},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,0.05)'},ticks:{callback:function(v){return v+'h';}}}}}});
+
+  var mS=Array.from(new Set(detalleAllShifts.map(function(s){return s.fecha.slice(0,7);}))).sort().reverse();
+  var sel=document.getElementById('detalle-mes-filter');
+  sel.innerHTML='<option value="">todos los meses</option>';
+  mS.forEach(function(m){var p=m.split('-');sel.innerHTML+='<option value="'+m+'">'+MESES[parseInt(p[1])-1]+' '+p[0]+'</option>';});
+  renderDetalleShifts('');
+}
+
+function filterDetalleMes(){renderDetalleShifts(document.getElementById('detalle-mes-filter').value);}
+
+function renderDetalleShifts(mesFilter) {
+  var filtered=mesFilter?detalleAllShifts.filter(function(s){return s.fecha.startsWith(mesFilter);}):detalleAllShifts;
+  var sorted=filtered.slice().sort(function(a,b){return b.fecha.localeCompare(a.fecha);});
+  var cont=document.getElementById('detalle-shifts-list');cont.innerHTML='';
+  if(!sorted.length){cont.innerHTML='<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros.</p>';return;}
+  sorted.forEach(function(shift){
+    var fd=shift.fecha.split('-').reverse().join('/');
+    var ini=new Date(shift.inicio).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    var fin=new Date(shift.fin).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    var proj=allProjects.find(function(p){return p.id===shift.project_id;});
+    var color=proj?proj.color:'#94a3b8';
+    var pname=shift.project_name||'Horas libres';
+    var entradas=(shift.entradas||[]).map(function(e){
+      var t=new Date(e.timestamp);
+      return '<div class="entry-card" style="border-left:3px solid '+color+'">'+
+        '<div class="entry-card-header"><span class="entry-time">'+t.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})+'</span>'+
+        '<span class="entry-duration">'+fmtTime(e.elapsedSecs||0)+'</span></div>'+
+        '<p class="entry-desc">'+e.desc+'</p>'+(e.doubt?'<div class="entry-doubt">'+e.doubt+'</div>':'')+
+        ((e.images&&e.images.length)?'<div class="entry-img-grid">'+e.images.map(function(s){return '<img src="'+s+'" onclick="event.stopPropagation();openLightbox(\''+s+'\')">'; }).join('')+'</div>':'')+
+      '</div>';
+    }).join('');
+    var card=document.createElement('div');card.className='glass-container';
+    card.style.cssText='padding:16px;cursor:pointer;transition:background 0.2s;';
+    card.innerHTML=
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">'+
+        '<div style="display:flex;align-items:center;gap:10px;">'+
+          '<span style="width:10px;height:10px;border-radius:50%;background:'+color+';display:inline-block;flex-shrink:0;"></span>'+
+          '<span style="font-size:0.88rem;font-weight:700;color:var(--accent-blue);">'+fd+'</span>'+
+          '<span style="font-size:0.78rem;color:var(--text-secondary);">'+pname.toLowerCase()+'</span>'+
+          '<span style="font-size:0.75rem;color:var(--text-secondary);">'+ini+' - '+fin+'</span>'+
+        '</div>'+
+        '<div style="display:flex;gap:10px;align-items:center;">'+
+          '<span class="entry-duration">'+shift.total_horas+'h</span>'+
+          '<span style="font-size:0.78rem;color:var(--text-secondary);">'+(shift.entradas?shift.entradas.length:0)+' avance(s)</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="shift-body entries-list" style="display:none;margin-top:14px;">'+entradas+'</div>';
+    card.addEventListener('click',function(){var b=card.querySelector('.shift-body');b.style.display=b.style.display==='none'?'block':'none';});
+    cont.appendChild(card);
+  });
+}
+
+// -- PROYECTOS ----------------------------------------------------------------
 async function loadProjects() {
-  const { data } = await sb.from('tracker_projects').select('*').order('created_at');
-  allProjects = data || [];
+  var r=await sb.from('tracker_projects').select('*').order('created_at');
+  allProjects=r.data||[];
   renderProjectsList();
 }
 
 function renderProjectsList() {
-  const container = document.getElementById('projects-list');
-  if (!container) return;
-  container.innerHTML = '';
-  allProjects.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'glass-container';
-    card.style.cssText = 'padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;';
-    const isLibre = p.id === '00000000-0000-0000-0000-000000000001';
-    card.innerHTML = `
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="width:14px;height:14px;border-radius:50%;background:${p.color};flex-shrink:0;display:inline-block;"></span>
-        <div>
-          <div style="font-weight:600;color:var(--text-primary);font-size:0.9rem;">${p.name}</div>
-          ${p.description ? `<div style="font-size:0.75rem;color:var(--text-secondary);margin-top:2px;">${p.description}</div>` : ''}
-        </div>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span style="font-size:0.72rem;padding:2px 10px;border-radius:20px;border:1px solid;
-          ${p.active ? 'background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.3);color:var(--accent-green);' : 'background:rgba(248,113,113,0.1);border-color:rgba(248,113,113,0.3);color:var(--danger);'}">
-          ${p.active ? 'activo' : 'inactivo'}
-        </span>
-        ${!isLibre ? `
-          <button class="btn-optimizar" style="padding:4px 12px;font-size:0.75rem;" onclick="toggleProject('${p.id}',${!p.active})">
-            ${p.active ? 'desactivar' : 'activar'}
-          </button>
-          <button class="btn-optimizar btn-danger" style="padding:4px 12px;font-size:0.75rem;" onclick="deleteProject('${p.id}','${p.name}')">eliminar</button>
-        ` : `<span style="font-size:0.72rem;color:var(--text-secondary);">predeterminado</span>`}
-      </div>
-    `;
-    container.appendChild(card);
+  var cont=document.getElementById('projects-list');if(!cont)return;cont.innerHTML='';
+  allProjects.forEach(function(p){
+    var isLibre=(p.id==='00000000-0000-0000-0000-000000000001');
+    var card=document.createElement('div');card.className='glass-container';
+    card.style.cssText='padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;';
+    card.innerHTML=
+      '<div style="display:flex;align-items:center;gap:12px;">'+
+        '<span style="width:14px;height:14px;border-radius:50%;background:'+p.color+';flex-shrink:0;display:inline-block;"></span>'+
+        '<div>'+
+          '<div style="font-weight:600;color:var(--text-primary);font-size:0.9rem;">'+p.name+'</div>'+
+          (p.description?'<div style="font-size:0.75rem;color:var(--text-secondary);margin-top:2px;">'+p.description+'</div>':'')+
+        '</div>'+
+      '</div>'+
+      '<div style="display:flex;gap:8px;align-items:center;">'+
+        '<span style="font-size:0.72rem;padding:2px 10px;border-radius:20px;border:1px solid;'+
+          (p.active?'background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.3);color:var(--accent-green);':'background:rgba(248,113,113,0.1);border-color:rgba(248,113,113,0.3);color:var(--danger);')+
+        '">'+( p.active?'activo':'inactivo')+'</span>'+
+        (!isLibre?
+          '<button type="button" class="btn-optimizar" style="padding:4px 12px;font-size:0.75rem;" onclick="toggleProject(\''+p.id+'\','+(!p.active)+')">'+( p.active?'desactivar':'activar')+'</button>'+
+          '<button type="button" class="btn-optimizar btn-danger" style="padding:4px 12px;font-size:0.75rem;" onclick="deleteProject(\''+p.id+'\',\''+p.name.replace(/'/g,"\\'")+'\')">eliminar</button>':
+          '<span style="font-size:0.72rem;color:var(--text-secondary);">predeterminado</span>')+
+      '</div>';
+    cont.appendChild(card);
   });
 }
 
 function openProjectModal() {
-  document.getElementById('p-name').value = '';
-  document.getElementById('p-desc').value = '';
-  document.getElementById('p-color').value = '#38bdf8';
-  document.getElementById('project-modal-error').style.display = 'none';
-
-  // Generar presets de color
-  const presets = document.getElementById('color-presets');
-  presets.innerHTML = '';
-  PROJECT_COLORS.forEach(c => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.style.cssText = `width:24px;height:24px;border-radius:50%;background:${c};border:2px solid rgba(255,255,255,0.2);cursor:pointer;transition:transform 0.2s;`;
-    btn.onclick = () => { document.getElementById('p-color').value = c; };
-    btn.onmouseover = () => btn.style.transform = 'scale(1.2)';
-    btn.onmouseout  = () => btn.style.transform = 'scale(1)';
+  document.getElementById('p-name').value='';document.getElementById('p-desc').value='';
+  document.getElementById('p-color').value='#38bdf8';document.getElementById('project-modal-error').style.display='none';
+  var presets=document.getElementById('color-presets-container');presets.innerHTML='';
+  projectColorPresets.forEach(function(c){
+    var btn=document.createElement('button');btn.type='button';btn.title=c;
+    btn.style.cssText='width:28px;height:28px;border-radius:50%;background:'+c+';border:2px solid rgba(255,255,255,0.15);cursor:pointer;transition:transform 0.15s,border-color 0.15s;flex-shrink:0;';
+    btn.addEventListener('click',function(){
+      document.getElementById('p-color').value=c;
+      presets.querySelectorAll('button').forEach(function(b){b.style.borderColor='rgba(255,255,255,0.15)';});
+      btn.style.borderColor='white';
+    });
+    btn.addEventListener('mouseover',function(){btn.style.transform='scale(1.2)';});
+    btn.addEventListener('mouseout',function(){btn.style.transform='scale(1)';});
     presets.appendChild(btn);
   });
-
-  document.getElementById('project-modal').style.display = 'flex';
+  var first=presets.querySelector('button');if(first)first.style.borderColor='white';
+  document.getElementById('project-modal').style.display='flex';
+  setTimeout(function(){document.getElementById('p-name').focus();},100);
 }
 
-function closeProjectModal() {
-  document.getElementById('project-modal').style.display = 'none';
-}
+function closeProjectModal(){document.getElementById('project-modal').style.display='none';}
 
 async function saveProject() {
-  const name  = document.getElementById('p-name').value.trim();
-  const desc  = document.getElementById('p-desc').value.trim();
-  const color = document.getElementById('p-color').value;
-  const errEl = document.getElementById('project-modal-error');
-  const btn   = document.getElementById('save-project-btn');
-
-  errEl.style.display = 'none';
-  if (!name) { errEl.textContent = 'El nombre del proyecto es obligatorio.'; errEl.style.display = 'block'; return; }
-
-  btn.textContent = 'creando...'; btn.disabled = true;
-
-  const { error } = await sb.from('tracker_projects').insert({
-    name, description: desc, color, active: true,
-    created_by: session.userId
-  });
-
-  if (error) {
-    errEl.textContent = 'Error al crear el proyecto: ' + error.message;
-    errEl.style.display = 'block';
-  } else {
-    showToast(`Proyecto "${name}" creado â`);
-    closeProjectModal();
-    await loadProjects();
-  }
-  btn.textContent = 'crear proyecto'; btn.disabled = false;
+  var name=document.getElementById('p-name').value.trim(),desc=document.getElementById('p-desc').value.trim();
+  var color=document.getElementById('p-color').value;
+  var errEl=document.getElementById('project-modal-error'),btn=document.getElementById('save-project-btn');
+  errEl.style.display='none';
+  if(!name){errEl.textContent='El nombre es obligatorio.';errEl.style.display='block';return;}
+  btn.textContent='creando...';btn.disabled=true;
+  var r=await sb.from('tracker_projects').insert({name:name,description:desc,color:color,active:true,created_by:session.userId});
+  if(r.error){errEl.textContent='Error: '+r.error.message;errEl.style.display='block';}
+  else{showToast('Proyecto "'+name+'" creado');closeProjectModal();await loadProjects();}
+  btn.textContent='crear proyecto';btn.disabled=false;
 }
 
-async function toggleProject(id, newState) {
-  await sb.from('tracker_projects').update({ active: newState }).eq('id', id);
-  showToast(newState ? 'Proyecto activado.' : 'Proyecto desactivado.');
-  await loadProjects();
+async function toggleProject(id,newState){
+  await sb.from('tracker_projects').update({active:newState}).eq('id',id);
+  showToast(newState?'Proyecto activado.':'Proyecto desactivado.');await loadProjects();
 }
 
-async function deleteProject(id, name) {
-  if (!confirm(`Â¿Eliminar el proyecto "${name}"?\nLos turnos ya registrados mantendrÃ¡n el nombre del proyecto.`)) return;
-  const { error } = await sb.from('tracker_projects').delete().eq('id', id);
-  if (error) { showToast('Error al eliminar: ' + error.message, 'error'); return; }
-  showToast(`Proyecto "${name}" eliminado.`);
-  await loadProjects();
+async function deleteProject(id,name){
+  if(!confirm('Eliminar el proyecto "'+name+'"?'))return;
+  var r=await sb.from('tracker_projects').delete().eq('id',id);
+  if(r.error){showToast('Error: '+r.error.message,'error');return;}
+  showToast('Proyecto "'+name+'" eliminado.');await loadProjects();
 }
-
 </script>
 </body>
 </html>
