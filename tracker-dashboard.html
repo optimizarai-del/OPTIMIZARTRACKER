@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>optimizar â mi tracker</title>
+  <title>Optimizar - Mi Tracker</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tracker-style.css">
@@ -28,13 +28,13 @@
       <path d="M 50 20 h 20 v 20"/>
     </svg>
     <div>
-      <h1 style="font-size:1.4rem;text-transform:lowercase;letter-spacing:-0.5px;">optimizar tracker</h1>
+      <h1 style="font-size:1.4rem;letter-spacing:-0.5px;">Optimizar Tracker</h1>
     </div>
   </div>
   <div class="nav-buttons">
     <span class="nav-timer" id="nav-timer" style="display:none;">00:00:00</span>
-    <span id="user-greeting" style="font-size:0.85rem;color:var(--text-secondary);"></span>
-    <button onclick="trackerLogout()" class="btn-optimizar" style="padding:8px 18px;font-size:0.85rem;">salir</button>
+    <span id="user-greeting" style="font-size:0.85rem;color:rgba(255,255,255,0.85);"></span>
+    <button onclick="trackerLogout()" class="btn-optimizar" style="padding:8px 18px;font-size:0.85rem;">Salir</button>
   </div>
 </header>
 
@@ -43,47 +43,45 @@
   <!-- TURNO + SELECTOR DE PROYECTO -->
   <div class="glass-container turno-hero">
     <div class="turno-info">
-      <h2 id="turno-title">Â¿listo para empezar?</h2>
-      <p id="turno-sub">seleccionÃ¡ un proyecto y presionÃ¡ el botÃ³n para iniciar</p>
+      <h2 id="turno-title">&iquest;Listo para empezar?</h2>
+      <p id="turno-sub">Selecciona un proyecto y presiona el boton para iniciar</p>
     </div>
     <div class="turno-actions" style="flex-direction:column;align-items:flex-end;gap:12px;">
 
-      <!-- Selector (visible cuando no hay turno) -->
       <div id="project-selector-wrap" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
-        <label style="font-size:0.78rem;font-weight:600;color:var(--accent-blue);white-space:nowrap;">proyecto:</label>
+        <label style="font-size:0.78rem;font-weight:600;color:white;white-space:nowrap;">Proyecto:</label>
         <div style="position:relative;">
           <select id="project-select" class="glass-input"
             style="min-width:200px;font-size:0.88rem;padding:8px 36px 8px 14px;background:rgba(30,10,60,0.5);cursor:pointer;appearance:none;">
-            <option value="">cargando...</option>
+            <option value="">Cargando...</option>
           </select>
           <span id="project-color-dot"
             style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:#94a3b8;pointer-events:none;"></span>
         </div>
       </div>
 
-      <!-- Badge proyecto activo (visible durante el turno) -->
       <div id="active-project-badge" style="display:none;align-items:center;gap:8px;">
         <span id="active-project-dot" style="width:10px;height:10px;border-radius:50%;flex-shrink:0;background:#94a3b8;"></span>
-        <span id="active-project-name" style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);"></span>
+        <span id="active-project-name" style="font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.85);"></span>
       </div>
 
       <div style="display:flex;align-items:center;gap:14px;">
         <div id="timer-display" style="font-size:1.8rem;font-weight:800;color:var(--accent-green);font-variant-numeric:tabular-nums;letter-spacing:3px;display:none;">00:00:00</div>
         <button class="btn-turno" id="btn-turno" onclick="handleTurno()">
-          <span id="turno-icon">â¶</span>
-          <span id="turno-label">empezar turno</span>
+          <span id="turno-icon">&#9654;</span>
+          <span id="turno-label">Empezar Turno</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- GRÃFICO -->
+  <!-- GRAFICO -->
   <div class="glass-container chart-section">
     <div class="chart-section-header" style="flex-wrap:wrap;gap:12px;">
-      <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">â± horas por dÃ­a y proyecto</h3>
+      <h3 style="color:white;font-size:0.85rem;letter-spacing:0.05em;">Horas por Dia y Proyecto</h3>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
         <input type="date" id="chart-from" class="glass-input" style="width:140px;font-size:0.8rem;padding:6px 10px;">
-        <span style="color:var(--text-secondary);font-size:0.8rem;">â</span>
+        <span style="color:rgba(255,255,255,0.6);font-size:0.8rem;">&rarr;</span>
         <input type="date" id="chart-to" class="glass-input" style="width:140px;font-size:0.8rem;padding:6px 10px;">
       </div>
     </div>
@@ -94,19 +92,19 @@
   <!-- CALENDARIO -->
   <div class="glass-container calendar-section">
     <div class="calendar-nav">
-      <button class="btn-optimizar" style="padding:6px 14px;font-size:0.8rem;" onclick="changeMonth(-1)">â anterior</button>
-      <h3 id="cal-month-label"></h3>
-      <button class="btn-optimizar" style="padding:6px 14px;font-size:0.8rem;" onclick="changeMonth(1)">siguiente â</button>
+      <button class="btn-optimizar" style="padding:6px 14px;font-size:0.8rem;" onclick="changeMonth(-1)">&larr; Anterior</button>
+      <h3 id="cal-month-label" style="color:white;"></h3>
+      <button class="btn-optimizar" style="padding:6px 14px;font-size:0.8rem;" onclick="changeMonth(1)">Siguiente &rarr;</button>
     </div>
     <div class="calendar-grid" id="calendar-grid"></div>
   </div>
 
-  <!-- DETALLE DÃA -->
+  <!-- DETALLE DIA -->
   <div class="glass-container day-detail-card" id="day-detail" style="display:none;">
     <div class="day-detail-header">
-      <h3 id="day-detail-title" style="color:var(--accent-blue);"></h3>
+      <h3 id="day-detail-title" style="color:white;"></h3>
       <button onclick="document.getElementById('day-detail').style.display='none'"
-        class="btn-optimizar" style="padding:5px 14px;font-size:0.8rem;">â cerrar</button>
+        class="btn-optimizar" style="padding:5px 14px;font-size:0.8rem;">Cerrar</button>
     </div>
     <div class="day-stat-row" id="day-stats-row"></div>
     <div class="entries-list" id="day-entries-list"></div>
@@ -120,36 +118,36 @@
     <div class="modal-header">
       <div style="display:flex;align-items:center;gap:10px;">
         <span id="modal-project-dot" style="width:12px;height:12px;border-radius:50%;background:#94a3b8;flex-shrink:0;"></span>
-        <h3 style="color:var(--accent-green);">â turno en curso</h3>
+        <h3 style="color:var(--accent-green);">&#9679; Turno en Curso</h3>
       </div>
-      <button onclick="closeModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">minimizar â</button>
+      <button onclick="closeModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">Minimizar</button>
     </div>
-    <p id="modal-project-label" style="font-size:0.78rem;color:var(--text-secondary);margin-bottom:14px;margin-top:-4px;"></p>
+    <p id="modal-project-label" style="font-size:0.78rem;color:rgba(255,255,255,0.7);margin-bottom:14px;margin-top:-4px;"></p>
 
     <div class="modal-timer-display" id="modal-timer">00:00:00</div>
 
     <div style="margin-bottom:14px;">
-      <label class="input-label">Â¿quÃ© estÃ¡s haciendo ahora? (opcional)</label>
+      <label class="input-label">&iquest;Que estas haciendo ahora? (opcional)</label>
       <textarea id="entry-desc" class="glass-input" rows="3"
-        placeholder="describÃ­ el avance, tarea o actividad..."></textarea>
+        placeholder="Describe el avance, tarea o actividad..."></textarea>
     </div>
     <div style="margin-bottom:14px;">
-      <label class="input-label">dudas o bloqueos (opcional)</label>
+      <label class="input-label">Dudas o bloqueos (opcional)</label>
       <textarea id="entry-doubt" class="glass-input" rows="2"
-        placeholder="si algo te estÃ¡ bloqueando, escribilo acÃ¡..."></textarea>
+        placeholder="Si algo te esta bloqueando, escribilo aca..."></textarea>
     </div>
 
     <div class="upload-area" onclick="document.getElementById('file-input').click()">
       <input type="file" id="file-input" accept="image/*" multiple style="display:none;" onchange="handleFileSelect(event)">
-      <div style="font-size:1.5rem;margin-bottom:4px;">ð</div>
-      <p style="font-size:0.85rem;">adjuntÃ¡ capturas de pantalla</p>
-      <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);">JPG, PNG Â· mÃ¡x 5MB c/u</p>
+      <div style="font-size:1.5rem;margin-bottom:4px;color:rgba(255,255,255,0.5);">&#128206;</div>
+      <p style="font-size:0.85rem;color:white;">Adjunta capturas de pantalla</p>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);">JPG, PNG - max 5MB c/u</p>
     </div>
     <div class="preview-grid" id="preview-grid"></div>
 
     <div class="modal-actions">
-      <button class="btn-optimizar" onclick="saveEntry()" style="padding:10px 24px;">ð¾ guardar avance</button>
-      <button class="btn-optimizar btn-danger" onclick="finalizarTurno()" style="padding:10px 24px;">â¹ finalizar turno</button>
+      <button class="btn-optimizar" onclick="saveEntry()" style="padding:10px 24px;">Guardar Avance</button>
+      <button class="btn-optimizar btn-danger" onclick="finalizarTurno()" style="padding:10px 24px;">Finalizar Turno</button>
     </div>
     <div id="saved-entries-modal" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
   </div>
@@ -165,16 +163,15 @@ let currentCalYear = new Date().getFullYear();
 let projects = [];
 
 const TURNO_KEY = 'optimizar_turno_activo';
-const DIAS  = ['dom','lun','mar','miÃ©','jue','vie','sÃ¡b'];
-const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const DIAS  = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-// ââ INIT ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 (async () => {
   session = await requireTrackerAuth(['user','admin']);
   if (!session) return;
   sb = getSupabase();
   document.getElementById('user-greeting').textContent =
-    `hola, ${session.name.split(' ')[0].toLowerCase()} ð`;
+    'Hola, ' + session.name.split(' ')[0];
 
   await loadProjects();
   restaurarTurnoSiExiste();
@@ -190,7 +187,6 @@ const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto'
   loadData();
 })();
 
-// ââ PROYECTOS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function loadProjects() {
   const { data } = await sb.from('tracker_projects').select('*').eq('active', true).order('created_at');
   projects = data || [];
@@ -219,7 +215,6 @@ function getProjectColor(projectId) {
   return projects.find(p => p.id === projectId)?.color || '#94a3b8';
 }
 
-// ââ TIMER âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function formatTime(s) {
   return [Math.floor(s/3600), Math.floor((s%3600)/60), s%60]
     .map(n => String(n).padStart(2,'0')).join(':');
@@ -251,7 +246,6 @@ function guardarEstadoTurno(entries) {
   localStorage.setItem(TURNO_KEY, JSON.stringify(d));
 }
 
-// ââ RESTAURAR TURNO âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function restaurarTurnoSiExiste() {
   const d = JSON.parse(localStorage.getItem(TURNO_KEY) || 'null');
   if (!d) return;
@@ -270,7 +264,7 @@ function restaurarTurnoSiExiste() {
         <span class="entry-time">${t.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}</span>
         <span class="entry-duration">${formatTime(e.elapsedSecs||0)}</span>
       </div>
-      <p class="entry-desc">${e.desc||'(sin descripciÃ³n)'}</p>
+      <p class="entry-desc">${e.desc||'(sin descripcion)'}</p>
       ${e.doubt ? `<div class="entry-doubt">${e.doubt}</div>` : ''}
     `;
     container.appendChild(div);
@@ -282,11 +276,11 @@ function restaurarTurnoSiExiste() {
 
 function activarUITurno(inicio, project) {
   document.getElementById('btn-turno').classList.add('activo');
-  document.getElementById('turno-icon').textContent = 'âº';
-  document.getElementById('turno-label').textContent = 'turno activo â ver panel';
-  document.getElementById('turno-title').textContent = 'turno en curso';
+  document.getElementById('turno-icon').textContent = '&#9209;';
+  document.getElementById('turno-label').textContent = 'Turno Activo - Ver Panel';
+  document.getElementById('turno-title').textContent = 'Turno en Curso';
   document.getElementById('turno-sub').textContent =
-    `iniciado a las ${inicio.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}`;
+    `Iniciado a las ${inicio.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}`;
   document.getElementById('nav-timer').style.display = 'block';
   document.getElementById('nav-timer').classList.add('running');
   document.getElementById('timer-display').style.display = 'block';
@@ -294,22 +288,21 @@ function activarUITurno(inicio, project) {
 
   if (project) {
     document.getElementById('active-project-dot').style.background = project.color;
-    document.getElementById('active-project-name').textContent = project.name.toLowerCase();
+    document.getElementById('active-project-name').textContent = project.name;
     document.getElementById('active-project-badge').style.display = 'flex';
     document.getElementById('modal-project-dot').style.background = project.color;
-    document.getElementById('modal-project-label').textContent = `proyecto: ${project.name.toLowerCase()}`;
+    document.getElementById('modal-project-label').textContent = `Proyecto: ${project.name}`;
     document.getElementById('modal-project-label').style.color = project.color;
   }
 }
 
-// ââ INICIAR / ABRIR TURNO ââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function handleTurno() {
   if (!turnoActivo) iniciarTurno(); else openModal();
 }
 
 function iniciarTurno() {
   const project = getSelectedProject();
-  if (!project) { showToast('SeleccionÃ¡ un proyecto antes de iniciar', 'error'); return; }
+  if (!project) { showToast('Selecciona un proyecto antes de iniciar', 'error'); return; }
 
   turnoActivo = true;
   currentEntries = [];
@@ -334,10 +327,9 @@ function iniciarTurno() {
 function openModal() { document.getElementById('modal-turno').style.display = 'flex'; }
 function closeModal() { document.getElementById('modal-turno').style.display = 'none'; }
 
-// ââ IMÃGENES ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function handleFileSelect(e) {
   Array.from(e.target.files).forEach(file => {
-    if (file.size > 5*1024*1024) { showToast('Imagen muy grande (mÃ¡x 5MB)','error'); return; }
+    if (file.size > 5*1024*1024) { showToast('Imagen muy grande (max 5MB)','error'); return; }
     const reader = new FileReader();
     reader.onload = ev => { uploadedImages.push({file, base64: ev.target.result}); renderPreviews(); };
     reader.readAsDataURL(file);
@@ -350,17 +342,16 @@ function renderPreviews() {
   grid.innerHTML = '';
   uploadedImages.forEach((img, i) => {
     const div = document.createElement('div'); div.className = 'preview-img';
-    div.innerHTML = `<img src="${img.base64}" alt="preview"><button onclick="removeImage(${i})">â</button>`;
+    div.innerHTML = `<img src="${img.base64}" alt="preview"><button onclick="removeImage(${i})">&times;</button>`;
     grid.appendChild(div);
   });
 }
 
 function removeImage(i) { uploadedImages.splice(i,1); renderPreviews(); }
 
-// ââ GUARDAR AVANCE ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function saveEntry() {
   const desc = document.getElementById('entry-desc').value.trim();
-  if (!desc) { showToast('DescribÃ­ el avance antes de guardar','error'); return; }
+  if (!desc) { showToast('Describe el avance antes de guardar','error'); return; }
 
   const ahora = new Date();
   const entry = {
@@ -390,10 +381,9 @@ async function saveEntry() {
   document.getElementById('entry-doubt').value = '';
   uploadedImages = [];
   renderPreviews();
-  showToast('Avance guardado â');
+  showToast('Avance guardado');
 }
 
-// ââ FINALIZAR TURNO âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function finalizarTurno() {
   clearInterval(timerInterval);
   turnoActivo = false;
@@ -405,7 +395,6 @@ async function finalizarTurno() {
   const fechaLocal   = turnoStart.toISOString().split('T')[0];
   const turnoData    = JSON.parse(localStorage.getItem(TURNO_KEY) || '{}');
 
-  // Subir imÃ¡genes
   const entriesParaGuardar = [];
   for (const entry of currentEntries) {
     const urls = [];
@@ -425,20 +414,20 @@ async function finalizarTurno() {
   }
 
   const { error } = await sb.from('tracker_shifts').insert({
-    user_id:      session.userId,
-    fecha:        fechaLocal,
-    inicio:       turnoStart.toISOString(),
-    fin:          fin.toISOString(),
+    user_id:        session.userId,
+    fecha:          fechaLocal,
+    inicio:         turnoStart.toISOString(),
+    fin:            fin.toISOString(),
     total_segundos: segs,
-    total_horas:  Math.round(totalHoras*100)/100,
-    entradas:     entriesParaGuardar,
-    project_id:   turnoData.projectId   || null,
-    project_name: turnoData.projectName || ''
+    total_horas:    Math.round(totalHoras*100)/100,
+    entradas:       entriesParaGuardar,
+    project_id:     turnoData.projectId   || null,
+    project_name:   turnoData.projectName || ''
   });
 
   if (error) {
     console.error(error);
-    showToast('Error al guardar. ReintentÃ¡.','error');
+    showToast('Error al guardar. Reintenta.','error');
     turnoActivo = true;
     timerInterval = setInterval(tickTimer, 1000);
     return;
@@ -446,14 +435,13 @@ async function finalizarTurno() {
 
   localStorage.removeItem(TURNO_KEY);
 
-  // Reset UI
   closeModal();
   document.getElementById('btn-turno').classList.remove('activo');
-  document.getElementById('turno-icon').textContent  = 'â¶';
-  document.getElementById('turno-label').textContent = 'empezar turno';
-  document.getElementById('turno-title').textContent = 'Â¿listo para el prÃ³ximo turno?';
+  document.getElementById('turno-icon').textContent  = '&#9654;';
+  document.getElementById('turno-label').textContent = 'Empezar Turno';
+  document.getElementById('turno-title').textContent = '&iquest;Listo para el proximo turno?';
   document.getElementById('turno-sub').textContent   =
-    `Ãºltimo turno: ${formatTime(segs)} â ${fin.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}`;
+    `Ultimo turno: ${formatTime(segs)} - ${fin.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}`;
   document.getElementById('nav-timer').style.display = 'none';
   document.getElementById('nav-timer').classList.remove('running');
   document.getElementById('timer-display').style.display = 'none';
@@ -462,11 +450,10 @@ async function finalizarTurno() {
   document.getElementById('project-selector-wrap').style.display = 'flex';
   currentEntries = [];
 
-  showToast(`Turno finalizado. ${Math.round(totalHoras*100)/100}h registradas â`);
+  showToast(`Turno finalizado. ${Math.round(totalHoras*100)/100}h registradas`);
   await loadData();
 }
 
-// ââ CARGAR DATOS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function loadData() {
   const { data, error } = await sb
     .from('tracker_shifts').select('*')
@@ -484,7 +471,6 @@ async function loadData() {
   renderCalendar();
 }
 
-// ââ GRÃFICO POR PROYECTO ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderChart(rows) {
   const from = document.getElementById('chart-from').value;
   const to   = document.getElementById('chart-to').value;
@@ -495,11 +481,10 @@ function renderChart(rows) {
   const allDates = [...new Set(filtered.map(r=>r.fecha))].sort();
   const labels   = allDates.map(d => { const [,m,day]=d.split('-'); return `${day}/${m}`; });
 
-  // Agrupar por proyecto
   const pmap = {};
   filtered.forEach(row => {
     const pid    = row.project_id || 'libre';
-    const pname  = row.project_name || 'Horas libres';
+    const pname  = row.project_name || 'Horas Libres';
     const pcolor = getProjectColor(row.project_id);
     if (!pmap[pid]) pmap[pid] = { name: pname, color: pcolor, byDate: {} };
     pmap[pid].byDate[row.fecha] = (pmap[pid].byDate[row.fecha]||0) + row.total_horas;
@@ -549,17 +534,15 @@ function renderChart(rows) {
     }
   });
 
-  // Leyenda
   const legend = document.getElementById('chart-projects-legend');
   legend.innerHTML = '';
   Object.values(pmap).forEach(info => {
     const li = document.createElement('div'); li.className = 'legend-item';
-    li.innerHTML = `<div class="legend-dot" style="background:${info.color}"></div><span>${info.name.toLowerCase()}</span>`;
+    li.innerHTML = `<div class="legend-dot" style="background:${info.color}"></div><span style="color:white;">${info.name}</span>`;
     legend.appendChild(li);
   });
 }
 
-// ââ CALENDARIO ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function changeMonth(delta) {
   currentCalMonth += delta;
   if (currentCalMonth > 11) { currentCalMonth=0; currentCalYear++; }
@@ -599,7 +582,7 @@ function renderCalendar() {
     }
 
     cell.innerHTML = `
-      <span>${d}</span>
+      <span style="color:white;">${d}</span>
       ${dd ? `<div style="display:flex;justify-content:center;margin-top:1px;">${dots}</div><div class="cal-hours">${Math.round(dd.horas*10)/10}h</div>` : ''}
     `;
     if (dd) cell.onclick = () => openDayDetail(ds);
@@ -607,7 +590,6 @@ function renderCalendar() {
   }
 }
 
-// ââ DETALLE DÃA âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function openDayDetail(ds) {
   const data = calendarData[ds];
   if (!data) return;
@@ -616,8 +598,8 @@ function openDayDetail(ds) {
     `${parseInt(d)} de ${MESES[parseInt(m)-1]} ${y}`;
 
   document.getElementById('day-stats-row').innerHTML = `
-    <div class="day-stat"><div class="label">horas totales</div><div class="value">${Math.round(data.horas*100)/100}h</div></div>
-    <div class="day-stat"><div class="label">avances registrados</div><div class="value">${data.entradas.length}</div></div>
+    <div class="day-stat"><div class="label">Horas Totales</div><div class="value">${Math.round(data.horas*100)/100}h</div></div>
+    <div class="day-stat"><div class="label">Avances Registrados</div><div class="value">${data.entradas.length}</div></div>
   `;
 
   const list = document.getElementById('day-entries-list');
@@ -625,21 +607,21 @@ function openDayDetail(ds) {
 
   (data.shifts||[]).forEach(shift => {
     const color = getProjectColor(shift.project_id);
-    const pname = shift.project_name || 'Horas libres';
+    const pname = shift.project_name || 'Horas Libres';
 
     const header = document.createElement('div');
     header.style.cssText = 'display:flex;align-items:center;gap:8px;margin:14px 0 8px;';
     header.innerHTML = `
       <span style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></span>
-      <span style="font-size:0.82rem;font-weight:600;color:${color};">${pname.toLowerCase()}</span>
-      <span style="font-size:0.75rem;color:var(--text-secondary);">â ${shift.total_horas}h</span>
+      <span style="font-size:0.82rem;font-weight:600;color:white;">${pname}</span>
+      <span style="font-size:0.75rem;color:rgba(255,255,255,0.6);">- ${shift.total_horas}h</span>
     `;
     list.appendChild(header);
 
     if (!shift.entradas?.length) {
       const p = document.createElement('p');
-      p.style.cssText = 'color:var(--text-secondary);font-size:0.82rem;margin-left:18px;';
-      p.textContent = 'sin avances registrados en este turno.';
+      p.style.cssText = 'color:rgba(255,255,255,0.6);font-size:0.82rem;margin-left:18px;';
+      p.textContent = 'Sin avances registrados en este turno.';
       list.appendChild(p);
     } else {
       shift.entradas.forEach(e => {

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Tracker — Estilos base (extiende el diseño de OPTIMIZARSAAS)
+   Tracker - Estilos base
    ========================================================================== */
 :root {
   --font-family: 'Poppins', sans-serif;
@@ -31,20 +31,19 @@ body {
 }
 
 h1 { font-weight: 800; color: var(--text-primary); }
-h2 { font-weight: 700; color: var(--accent-pink); }
+h2 { font-weight: 700; color: var(--text-primary); }
 h3 { font-weight: 700; color: var(--text-primary); font-size: 1.1rem; }
 p, span, div { font-weight: 400; color: var(--text-secondary); }
 
 label, .input-label {
   font-weight: 600;
-  color: var(--accent-blue);
+  color: #ffffff;
   display: block;
   margin-bottom: 5px;
   font-size: 0.9rem;
-  text-transform: lowercase;
 }
 
-/* ── Glassmorphism ── */
+/* -- Glassmorphism -- */
 .glass-container {
   background: var(--glass-bg);
   border: var(--glass-border);
@@ -55,7 +54,7 @@ label, .input-label {
   padding: 20px;
 }
 
-/* ── Botones ── */
+/* -- Botones -- */
 .btn-optimizar {
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.4);
@@ -63,7 +62,6 @@ label, .input-label {
   padding: 12px 24px;
   border-radius: 30px;
   font-weight: 600;
-  text-transform: lowercase;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -102,7 +100,7 @@ label, .input-label {
 }
 .btn-pink:hover { background: rgba(244,114,182,0.4); }
 
-/* Botón ENORME turno */
+/* Boton grande turno */
 .btn-turno {
   background: linear-gradient(135deg, rgba(52,211,153,0.35), rgba(56,189,248,0.35));
   border: 2px solid var(--accent-green);
@@ -111,7 +109,6 @@ label, .input-label {
   border-radius: 50px;
   font-weight: 800;
   font-size: 1.3rem;
-  text-transform: lowercase;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: var(--font-family);
@@ -137,7 +134,7 @@ label, .input-label {
   50% { box-shadow: 0 0 55px rgba(248,113,113,0.7); }
 }
 
-/* ── Inputs ── */
+/* -- Inputs -- */
 .glass-input {
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.3);
@@ -155,7 +152,7 @@ textarea.glass-input { resize: vertical; min-height: 90px; line-height: 1.5; }
 select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
 ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
 
-/* ── Form helpers ── */
+/* -- Form helpers -- */
 .form-group { margin-bottom: 18px; }
 .auth-error {
   background: rgba(248,113,113,0.15);
@@ -167,9 +164,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   margin-bottom: 14px;
 }
 
-/* ══════════════════════════════════════════════════
-   AUTH PAGE
-   ══════════════════════════════════════════════════ */
+/* AUTH PAGE */
 .auth-body { display: flex; align-items: center; justify-content: center; }
 .auth-wrapper { width: 100%; max-width: 420px; }
 .auth-card { padding: 40px 36px; }
@@ -180,12 +175,10 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   margin-bottom: 32px;
 }
 .brand-icon { color: var(--accent-blue); }
-.brand-title { font-size: 1.8rem; text-transform: lowercase; letter-spacing: -1px; }
+.brand-title { font-size: 1.8rem; letter-spacing: -1px; color: white; }
 .brand-sub { font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px; }
 
-/* ══════════════════════════════════════════════════
-   TOP NAV (compartida)
-   ══════════════════════════════════════════════════ */
+/* TOP NAV */
 .top-nav {
   display: flex;
   justify-content: space-between;
@@ -212,9 +205,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   50% { color: #6ee7b7; }
 }
 
-/* ══════════════════════════════════════════════════
-   TRACKER DASHBOARD (usuario)
-   ══════════════════════════════════════════════════ */
+/* TRACKER DASHBOARD */
 .tracker-layout {
   display: flex;
   flex-direction: column;
@@ -223,7 +214,6 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   margin: 0 auto;
 }
 
-/* Turno hero */
 .turno-hero {
   display: flex;
   align-items: center;
@@ -232,11 +222,10 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   flex-wrap: wrap;
 }
 .turno-info { display: flex; flex-direction: column; gap: 4px; }
-.turno-info h2 { font-size: 1.3rem; margin: 0; }
-.turno-info p { font-size: 0.85rem; }
+.turno-info h2 { font-size: 1.3rem; margin: 0; color: white; }
+.turno-info p { font-size: 0.85rem; color: var(--text-secondary); }
 .turno-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 
-/* Gráfico de horas */
 .chart-section { padding: 24px; }
 .chart-section-header {
   display: flex;
@@ -246,7 +235,6 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
 }
 .chart-wrap { position: relative; height: 220px; width: 100%; }
 
-/* Calendario */
 .calendar-section { padding: 24px; }
 .calendar-nav {
   display: flex;
@@ -254,7 +242,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   justify-content: space-between;
   margin-bottom: 16px;
 }
-.calendar-nav h3 { color: var(--text-primary); font-size: 1rem; }
+.calendar-nav h3 { color: white; font-size: 1rem; }
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -264,8 +252,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   text-align: center;
   font-size: 0.7rem;
   font-weight: 600;
-  color: var(--accent-blue);
-  text-transform: lowercase;
+  color: rgba(255,255,255,0.75);
   padding: 4px 0;
 }
 .cal-day {
@@ -280,6 +267,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   transition: all 0.2s ease;
   border: 1px solid transparent;
   gap: 2px;
+  color: white;
 }
 .cal-day:hover { background: rgba(255,255,255,0.1); }
 .cal-day.empty { cursor: default; }
@@ -297,18 +285,10 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   background: rgba(56,189,248,0.3);
   border-color: var(--accent-blue);
 }
-.cal-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--accent-green);
-}
+.cal-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-green); }
 .cal-hours { font-size: 0.6rem; color: var(--accent-green); line-height: 1; }
 
-/* Tarjeta de día */
-.day-detail-card {
-  padding: 24px;
-  animation: slideIn 0.3s ease;
-}
+.day-detail-card { padding: 24px; animation: slideIn 0.3s ease; }
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -319,12 +299,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   align-items: center;
   margin-bottom: 16px;
 }
-.day-stat-row {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
+.day-stat-row { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
 .day-stat {
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(255,255,255,0.15);
@@ -332,8 +307,8 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   padding: 12px 18px;
   min-width: 120px;
 }
-.day-stat .label { font-size: 0.72rem; color: var(--accent-blue); font-weight: 600; text-transform: lowercase; }
-.day-stat .value { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin-top: 2px; }
+.day-stat .label { font-size: 0.72rem; color: rgba(255,255,255,0.75); font-weight: 600; }
+.day-stat .value { font-size: 1.4rem; font-weight: 700; color: white; margin-top: 2px; }
 
 .entries-list { display: flex; flex-direction: column; gap: 12px; }
 .entry-card {
@@ -348,7 +323,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   align-items: center;
   margin-bottom: 8px;
 }
-.entry-time { font-size: 0.78rem; color: var(--accent-blue); font-weight: 600; }
+.entry-time { font-size: 0.78rem; color: white; font-weight: 600; }
 .entry-duration {
   font-size: 0.78rem;
   background: rgba(52,211,153,0.15);
@@ -358,7 +333,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   color: var(--accent-green);
   font-weight: 600;
 }
-.entry-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }
+.entry-desc { font-size: 0.88rem; color: rgba(255,255,255,0.85); line-height: 1.5; }
 .entry-img-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .entry-img-grid img {
   width: 72px; height: 72px;
@@ -378,11 +353,9 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   font-size: 0.82rem;
   color: #fde68a;
 }
-.entry-doubt::before { content: '❓ '; }
+.entry-doubt::before { content: '? '; }
 
-/* ══════════════════════════════════════════════════
-   MODAL DE TURNO
-   ══════════════════════════════════════════════════ */
+/* MODAL */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -440,10 +413,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
 }
 .upload-area:hover { border-color: var(--accent-blue); background: rgba(56,189,248,0.05); }
 .preview-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-.preview-img {
-  position: relative;
-  width: 64px; height: 64px;
-}
+.preview-img { position: relative; width: 64px; height: 64px; }
 .preview-img img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -463,9 +433,7 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
 }
 .modal-actions { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
 
-/* ══════════════════════════════════════════════════
-   ADMIN DASHBOARD
-   ══════════════════════════════════════════════════ */
+/* ADMIN DASHBOARD */
 .admin-layout {
   display: grid;
   grid-template-columns: 220px 1fr;
@@ -487,7 +455,6 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   color: rgba(255,255,255,0.7);
   font-family: var(--font-family);
   font-size: 0.9rem;
-  text-transform: lowercase;
   cursor: pointer;
   text-align: left;
   transition: all 0.2s;
@@ -498,11 +465,10 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
 .sidebar-btn.active {
   background: rgba(56,189,248,0.15);
   border-color: rgba(56,189,248,0.4);
-  color: var(--accent-blue);
+  color: white;
 }
 .admin-content { display: flex; flex-direction: column; gap: 20px; }
 
-/* Filtro de usuarios admin */
 .admin-filters {
   display: flex;
   gap: 12px;
@@ -521,7 +487,6 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   font-family: var(--font-family);
   transition: all 0.2s;
   font-weight: 600;
-  text-transform: lowercase;
 }
 .filter-chip:hover, .filter-chip.active {
   background: rgba(56,189,248,0.2);
@@ -529,18 +494,12 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   color: white;
 }
 
-/* Tabla de usuarios admin */
-.users-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-}
+.users-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
 .users-table th {
   text-align: left;
   padding: 10px 14px;
-  color: var(--accent-blue);
+  color: rgba(255,255,255,0.85);
   font-size: 0.78rem;
-  text-transform: lowercase;
   font-weight: 600;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
@@ -569,37 +528,26 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   color: var(--accent-blue);
 }
 
-/* Stats row admin */
 .stats-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
 }
-.stat-card-admin {
-  padding: 20px;
-  text-align: center;
-}
+.stat-card-admin { padding: 20px; text-align: center; }
 .stat-card-admin .stat-label {
   font-size: 0.75rem;
-  color: var(--accent-blue);
+  color: rgba(255,255,255,0.75);
   font-weight: 600;
-  text-transform: lowercase;
 }
 .stat-card-admin .stat-value {
   font-size: 2rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: white;
   margin-top: 4px;
   line-height: 1;
 }
 
-/* Legend */
-.chart-legend {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
+.chart-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
 .legend-item {
   display: flex;
   align-items: center;
@@ -610,12 +558,12 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.1);
   transition: all 0.2s;
+  color: white;
 }
 .legend-item:hover { background: rgba(255,255,255,0.08); }
 .legend-item.hidden { opacity: 0.35; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
-/* ── Lightbox ── */
 .lightbox-overlay {
   position: fixed;
   inset: 0;
@@ -633,7 +581,6 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
   object-fit: contain;
 }
 
-/* ── Notificación toast ── */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -656,7 +603,6 @@ select.glass-input { cursor: pointer; background: rgba(30,20,60,0.6); }
 @keyframes toastIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 @keyframes toastOut { from { opacity:1; } to { opacity:0; } }
 
-/* ── Responsive ── */
 @media (max-width: 900px) {
   .admin-layout { grid-template-columns: 1fr; }
   .admin-sidebar { flex-direction: row; flex-wrap: wrap; padding: 12px; }
