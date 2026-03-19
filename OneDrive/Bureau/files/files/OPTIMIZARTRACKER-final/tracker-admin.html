@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>optimizar — tracker admin</title>
+  <title>optimizar â tracker admin</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tracker-style.css">
@@ -43,44 +43,45 @@
 
   <!-- SIDEBAR -->
   <nav class="glass-container admin-sidebar">
-    <button class="sidebar-btn active" id="btn-dashboard" onclick="switchView('dashboard')">📊 dashboard</button>
-    <button class="sidebar-btn" id="btn-usuarios" onclick="switchView('usuarios')">👥 usuarios</button>
-    <button class="sidebar-btn" id="btn-detalle" onclick="switchView('detalle')" style="display:none;">📋 detalle usuario</button>
-    <button class="sidebar-btn" id="btn-mi-tracker" onclick="window.location.href='tracker-dashboard.html'">⏱ mi tracker</button>
+    <button class="sidebar-btn active" id="btn-dashboard" onclick="switchView('dashboard')">ð dashboard</button>
+    <button class="sidebar-btn" id="btn-usuarios" onclick="switchView('usuarios')">ð¥ usuarios</button>
+    <button class="sidebar-btn" id="btn-proyectos" onclick="switchView('proyectos')">ð proyectos</button>
+    <button class="sidebar-btn" id="btn-detalle" onclick="switchView('detalle')" style="display:none;">ð detalle usuario</button>
+    <button class="sidebar-btn" id="btn-mi-tracker" onclick="window.location.href='tracker-dashboard.html'">â± mi tracker</button>
   </nav>
 
   <div class="admin-content">
 
-    <!-- ══════════════ VISTA DASHBOARD ══════════════ -->
+    <!-- ââââââââââââââ VISTA DASHBOARD ââââââââââââââ -->
     <div id="view-dashboard">
 
       <!-- Stats -->
       <div class="stats-row">
         <div class="glass-container stat-card-admin">
           <div class="stat-label">horas totales hoy</div>
-          <div class="stat-value" id="stat-hoy">—</div>
+          <div class="stat-value" id="stat-hoy">â</div>
         </div>
         <div class="glass-container stat-card-admin">
           <div class="stat-label">horas esta semana</div>
-          <div class="stat-value" id="stat-semana">—</div>
+          <div class="stat-value" id="stat-semana">â</div>
         </div>
         <div class="glass-container stat-card-admin">
           <div class="stat-label">usuarios activos</div>
-          <div class="stat-value" id="stat-usuarios">—</div>
+          <div class="stat-value" id="stat-usuarios">â</div>
         </div>
         <div class="glass-container stat-card-admin">
           <div class="stat-label">avances registrados</div>
-          <div class="stat-value" id="stat-avances">—</div>
+          <div class="stat-value" id="stat-avances">â</div>
         </div>
       </div>
 
-      <!-- Gráfico multi-usuario -->
+      <!-- GrÃ¡fico multi-usuario -->
       <div class="glass-container chart-section">
         <div class="chart-section-header" style="flex-wrap:wrap;gap:12px;">
-          <h3 style="color:var(--accent-pink);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">⏱ horas por usuario / día</h3>
+          <h3 style="color:var(--accent-pink);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">â± horas por usuario / dÃ­a</h3>
           <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
             <input type="date" id="admin-from" class="glass-input" style="width:130px;font-size:0.8rem;padding:6px 10px;">
-            <span style="color:var(--text-secondary);font-size:0.8rem;">→</span>
+            <span style="color:var(--text-secondary);font-size:0.8rem;">â</span>
             <input type="date" id="admin-to" class="glass-input" style="width:130px;font-size:0.8rem;padding:6px 10px;">
           </div>
         </div>
@@ -89,22 +90,29 @@
         <div class="chart-legend" id="admin-legend"></div>
       </div>
 
-      <!-- Detalle día (al clickear en el gráfico) -->
+      <!-- GrÃ¡fico por proyecto (desglose) -->
+      <div class="glass-container chart-section">
+        <h3 style="color:var(--accent-purple);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;margin-bottom:10px;">ð horas por proyecto</h3>
+        <div class="chart-legend" id="admin-project-legend" style="margin-bottom:10px;"></div>
+        <div class="chart-wrap" style="height:220px;"><canvas id="adminProjectChart"></canvas></div>
+      </div>
+
+      <!-- Detalle dÃ­a (al clickear en el grÃ¡fico) -->
       <div class="glass-container day-detail-card" id="admin-day-detail" style="display:none;">
         <div class="day-detail-header">
           <h3 id="admin-day-title" style="color:var(--accent-pink);"></h3>
           <button onclick="document.getElementById('admin-day-detail').style.display='none'"
-            class="btn-optimizar" style="padding:5px 14px;font-size:0.8rem;">✕ cerrar</button>
+            class="btn-optimizar" style="padding:5px 14px;font-size:0.8rem;">â cerrar</button>
         </div>
         <div id="admin-day-content"></div>
       </div>
     </div>
 
-    <!-- ══════════════ VISTA USUARIOS ══════════════ -->
+    <!-- ââââââââââââââ VISTA USUARIOS ââââââââââââââ -->
     <div id="view-usuarios" style="display:none;">
       <div class="glass-container" style="padding:24px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
-          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">👥 gestión de usuarios</h3>
+          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">ð¥ gestiÃ³n de usuarios</h3>
           <button class="btn-optimizar btn-primary" style="padding:8px 20px;font-size:0.85rem;" onclick="openUserModal()">+ nuevo usuario</button>
         </div>
         <div style="overflow-x:auto;">
@@ -114,7 +122,7 @@
                 <th>nombre</th>
                 <th>email</th>
                 <th>rol</th>
-                <th>último turno</th>
+                <th>Ãºltimo turno</th>
                 <th>horas totales</th>
                 <th>avances</th>
                 <th>acciones</th>
@@ -126,7 +134,18 @@
       </div>
     </div>
 
-    <!-- ══════════════ VISTA DETALLE USUARIO ══════════════ -->
+    <!-- ââââââââââââââ VISTA DETALLE USUARIO ââââââââââââââ -->
+    <!-- ââââââââââââââ VISTA PROYECTOS ââââââââââââââ -->
+    <div id="view-proyectos" style="display:none;">
+      <div class="glass-container" style="padding:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <h3 style="color:var(--accent-purple);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">ð gestiÃ³n de proyectos</h3>
+          <button class="btn-optimizar" style="padding:8px 20px;font-size:0.85rem;background:rgba(167,139,250,0.2);border-color:var(--accent-purple);" onclick="openProjectModal()">+ nuevo proyecto</button>
+        </div>
+        <div id="projects-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+      </div>
+    </div>
+
     <div id="view-detalle" style="display:none;">
 
       <!-- Header -->
@@ -136,7 +155,7 @@
             <h2 id="detalle-nombre" style="color:var(--accent-blue);font-size:1.2rem;margin:0;font-weight:700;"></h2>
             <p id="detalle-email" style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px;"></p>
           </div>
-          <button onclick="switchView('usuarios')" class="btn-optimizar" style="padding:7px 18px;font-size:0.82rem;">← volver</button>
+          <button onclick="switchView('usuarios')" class="btn-optimizar" style="padding:7px 18px;font-size:0.82rem;">â volver</button>
         </div>
       </div>
 
@@ -144,32 +163,32 @@
       <div class="stats-row" style="margin-bottom:20px;">
         <div class="glass-container stat-card-admin">
           <div class="stat-label">horas totales</div>
-          <div class="stat-value" id="d-total-horas">—</div>
+          <div class="stat-value" id="d-total-horas">â</div>
         </div>
         <div class="glass-container stat-card-admin">
-          <div class="stat-label">días trabajados</div>
-          <div class="stat-value" id="d-dias">—</div>
+          <div class="stat-label">dÃ­as trabajados</div>
+          <div class="stat-value" id="d-dias">â</div>
         </div>
         <div class="glass-container stat-card-admin">
           <div class="stat-label">avances totales</div>
-          <div class="stat-value" id="d-avances">—</div>
+          <div class="stat-value" id="d-avances">â</div>
         </div>
         <div class="glass-container stat-card-admin">
           <div class="stat-label">promedio diario</div>
-          <div class="stat-value" id="d-promedio">—</div>
+          <div class="stat-value" id="d-promedio">â</div>
         </div>
       </div>
 
-      <!-- Gráfico individual -->
+      <!-- GrÃ¡fico individual -->
       <div class="glass-container chart-section" style="margin-bottom:20px;">
-        <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;margin-bottom:14px;">⏱ horas por día</h3>
+        <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;margin-bottom:14px;">â± horas por dÃ­a</h3>
         <div class="chart-wrap" style="height:200px;"><canvas id="detalleChart"></canvas></div>
       </div>
 
       <!-- Historial de turnos -->
       <div class="glass-container" style="padding:24px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;">📋 historial de turnos</h3>
+          <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;">ð historial de turnos</h3>
           <select id="detalle-mes-filter" class="glass-input" style="width:170px;font-size:0.82rem;padding:6px 10px;" onchange="filterDetalleMes()">
             <option value="">todos los meses</option>
           </select>
@@ -186,18 +205,18 @@
   <div class="glass-container modal-card" style="border-radius:16px;">
     <div class="modal-header">
       <h3 style="color:var(--accent-blue);">nuevo usuario</h3>
-      <button onclick="closeUserModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">✕</button>
+      <button onclick="closeUserModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">â</button>
     </div>
     <div class="form-group">
       <label class="input-label">nombre completo</label>
       <input type="text" id="u-name" class="glass-input" placeholder="Nombre Apellido">
     </div>
     <div class="form-group">
-      <label class="input-label">correo electrónico</label>
+      <label class="input-label">correo electrÃ³nico</label>
       <input type="email" id="u-email" class="glass-input" placeholder="nombre@empresa.com">
     </div>
     <div class="form-group">
-      <label class="input-label">contraseña temporal</label>
+      <label class="input-label">contraseÃ±a temporal</label>
       <input type="text" id="u-password" class="glass-input" value="Optimizar123">
     </div>
     <div class="form-group">
@@ -215,10 +234,40 @@
   </div>
 </div>
 
+<!-- MODAL NUEVO PROYECTO -->
+<div id="project-modal" class="modal-overlay" style="display:none;align-items:center;">
+  <div class="glass-container modal-card" style="border-radius:16px;">
+    <div class="modal-header">
+      <h3 style="color:var(--accent-purple);">nuevo proyecto</h3>
+      <button onclick="closeProjectModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">â</button>
+    </div>
+    <div class="form-group">
+      <label class="input-label" style="color:var(--accent-purple);">nombre del proyecto</label>
+      <input type="text" id="p-name" class="glass-input" placeholder="ej: Desarrollo Web, Soporte Cliente...">
+    </div>
+    <div class="form-group">
+      <label class="input-label" style="color:var(--accent-purple);">descripciÃ³n (opcional)</label>
+      <textarea id="p-desc" class="glass-input" rows="2" placeholder="Breve descripciÃ³n..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="input-label" style="color:var(--accent-purple);">color</label>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <input type="color" id="p-color" value="#38bdf8" style="width:44px;height:36px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;background:none;cursor:pointer;padding:2px;">
+        <div id="color-presets" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+    <div id="project-modal-error" class="auth-error" style="display:none;"></div>
+    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;">
+      <button onclick="closeProjectModal()" class="btn-optimizar" style="padding:10px 20px;">cancelar</button>
+      <button onclick="saveProject()" class="btn-optimizar" style="padding:10px 24px;background:rgba(167,139,250,0.25);border-color:var(--accent-purple);" id="save-project-btn">crear proyecto</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // INIT
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // Variables globales declaradas antes del await
 let session = null;
 let sb = null;
@@ -229,12 +278,12 @@ let allUsers = [];
 let selectedUserIds = new Set();
 let detalleAllShifts = [];
 
-// Inicialización async — refresca el rol desde Supabase antes de continuar
+// InicializaciÃ³n async â refresca el rol desde Supabase antes de continuar
 (async () => {
   session = await requireTrackerAuth(['admin']);
-  if (!session) return; // requireTrackerAuth ya redirigió si no es admin
+  if (!session) return; // requireTrackerAuth ya redirigiÃ³ si no es admin
   sb = getSupabase();
-  document.getElementById('admin-greeting').textContent = `hola, ${session.name.split(' ')[0].toLowerCase()} 👋`;
+  document.getElementById('admin-greeting').textContent = `hola, ${session.name.split(' ')[0].toLowerCase()} ð`;
   initAdmin();
 })();
 
@@ -243,23 +292,24 @@ function initAdmin() {
 const chartColors = ['#38bdf8','#f472b6','#a78bfa','#34d399','#fbbf24','#fb7185','#60a5fa','#c084fc','#f43f5e','#818cf8'];
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // VISTAS
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function switchView(view) {
-  ['dashboard', 'usuarios', 'detalle'].forEach(v => {
+  ['dashboard', 'usuarios', 'proyectos', 'detalle'].forEach(v => {
     const el = document.getElementById('view-' + v);
     if (el) el.style.display = v === view ? 'block' : 'none';
     const btn = document.getElementById('btn-' + v);
     if (btn) btn.classList.toggle('active', v === view);
   });
-  if (view === 'dashboard') loadDashboard();
-  if (view === 'usuarios') loadUsersTable();
+  if (view === 'dashboard')  loadDashboard();
+  if (view === 'usuarios')   loadUsersTable();
+  if (view === 'proyectos')  loadProjects();
 }
 
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // DASHBOARD GLOBAL
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function loadDashboard() {
   const { data: shifts } = await sb
     .from('tracker_shifts')
@@ -286,11 +336,12 @@ async function loadDashboard() {
   document.getElementById('stat-avances').textContent = totalAvances;
 
   selectedUserIds = new Set(allUsers.map(u => u.id));
+  await loadProjects();
   buildUserChips();
   renderAdminChart();
 }
 
-// ── Chips de filtro ───────────────────────────────────────────────────────────
+// ââ Chips de filtro âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function buildUserChips() {
   const container = document.getElementById('user-filter-chips');
   container.innerHTML = '';
@@ -331,7 +382,7 @@ function updateChips() {
   if (ac) ac.classList.toggle('active', selectedUserIds.size === allUsers.length);
 }
 
-// ── Gráfico multi-usuario ─────────────────────────────────────────────────────
+// ââ GrÃ¡fico multi-usuario âââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderAdminChart() {
   const from = document.getElementById('admin-from').value;
   const to = document.getElementById('admin-to').value;
@@ -400,20 +451,23 @@ function renderAdminChart() {
       onClick: (e, els) => { if (els.length > 0) openAdminDayDetail(masterDates[els[0].index]); }
     }
   });
+
+  // Renderizar tambiÃ©n el grÃ¡fico por proyecto
+  renderAdminProjectChart(allShifts);
 }
 
-// ── Detalle de día (click en gráfico) ─────────────────────────────────────────
+// ââ Detalle de dÃ­a (click en grÃ¡fico) âââââââââââââââââââââââââââââââââââââââââ
 function openAdminDayDetail(dateStr) {
   const [y, m, d] = dateStr.split('-');
   document.getElementById('admin-day-title').textContent =
-    `${parseInt(d)} de ${MESES[parseInt(m) - 1]} ${y} — detalle por usuario`;
+    `${parseInt(d)} de ${MESES[parseInt(m) - 1]} ${y} â detalle por usuario`;
 
   const dayShifts = allShifts.filter(s => s.fecha === dateStr && selectedUserIds.has(s.user_id));
   const content = document.getElementById('admin-day-content');
   content.innerHTML = '';
 
   if (!dayShifts.length) {
-    content.innerHTML = '<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros para este día.</p>';
+    content.innerHTML = '<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros para este dÃ­a.</p>';
   } else {
     dayShifts.forEach(shift => {
       const userName = (shift.tracker_users?.name || 'Usuario').toLowerCase();
@@ -422,7 +476,7 @@ function openAdminDayDetail(dateStr) {
       div.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <h3 style="color:var(--accent-blue);font-size:0.9rem;">${userName}</h3>
-          <span class="entry-duration">${shift.total_horas}h — ${shift.entradas?.length || 0} avance(s)</span>
+          <span class="entry-duration">${shift.total_horas}h â ${shift.entradas?.length || 0} avance(s)</span>
         </div>
         <div class="entries-list">
           ${(shift.entradas || []).map(e => {
@@ -455,9 +509,9 @@ function fmtTime(secs) {
   return h > 0 ? `${h}h ${m}m` : `${m}m`;
 }
 
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // TABLA DE USUARIOS
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function loadUsersTable() {
   const { data: users } = await sb.from('tracker_users').select('*').order('name');
   const { data: shifts } = await sb.from('tracker_shifts').select('user_id, fecha, total_horas, entradas');
@@ -471,12 +525,12 @@ async function loadUsersTable() {
     const totalAvances = uShifts.reduce((a, s) => a + (s.entradas?.length || 0), 0);
     const sorted = [...uShifts].sort((a, b) => b.fecha.localeCompare(a.fecha));
     const ultimo = sorted[0]?.fecha;
-    const fechaDisplay = ultimo ? ultimo.split('-').reverse().join('/') : '—';
+    const fechaDisplay = ultimo ? ultimo.split('-').reverse().join('/') : 'â';
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td style="color:var(--text-primary);font-weight:600;">${u.name}</td>
-      <td style="font-size:0.82rem;">${u.email || '—'}</td>
+      <td style="font-size:0.82rem;">${u.email || 'â'}</td>
       <td><span class="badge badge-${u.role}">${u.role}</span></td>
       <td>${fechaDisplay}</td>
       <td style="color:var(--accent-green);font-weight:700;">${totalHoras}h</td>
@@ -492,9 +546,9 @@ async function loadUsersTable() {
   });
 }
 
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // DETALLE DE USUARIO
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function verDetalle(userId, name, email) {
   document.getElementById('detalle-nombre').textContent = name.toLowerCase();
   document.getElementById('detalle-email').textContent = email;
@@ -518,7 +572,7 @@ async function verDetalle(userId, name, email) {
   document.getElementById('d-avances').textContent = avances;
   document.getElementById('d-promedio').textContent = prom + 'h';
 
-  // Gráfico individual
+  // GrÃ¡fico individual
   const byDate = {};
   detalleAllShifts.forEach(s => { byDate[s.fecha] = (byDate[s.fecha] || 0) + s.total_horas; });
   const dates = Object.keys(byDate).sort();
@@ -583,7 +637,7 @@ function renderDetalleShifts(mesFilter) {
   container.innerHTML = '';
 
   if (!sorted.length) {
-    container.innerHTML = '<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros para este período.</p>';
+    container.innerHTML = '<p style="color:var(--text-secondary);font-size:0.88rem;">sin registros para este perÃ­odo.</p>';
     return;
   }
 
@@ -621,12 +675,12 @@ function renderDetalleShifts(mesFilter) {
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
         <div style="display:flex;align-items:center;gap:14px;">
           <span style="font-size:0.9rem;font-weight:700;color:var(--accent-blue);">${fechaDisplay}</span>
-          <span style="font-size:0.78rem;color:var(--text-secondary);">${inicio} → ${fin}</span>
+          <span style="font-size:0.78rem;color:var(--text-secondary);">${inicio} â ${fin}</span>
         </div>
         <div style="display:flex;gap:12px;align-items:center;">
           <span class="entry-duration">${shift.total_horas}h</span>
           <span style="font-size:0.78rem;color:var(--text-secondary);">${shift.entradas?.length || 0} avance(s)</span>
-          <span style="font-size:0.72rem;color:rgba(255,255,255,0.3);">▼</span>
+          <span style="font-size:0.72rem;color:rgba(255,255,255,0.3);">â¼</span>
         </div>
       </div>
       <div class="shift-body entries-list" style="display:none;margin-top:14px;">${entradas}</div>
@@ -635,9 +689,9 @@ function renderDetalleShifts(mesFilter) {
   });
 }
 
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 // CREAR / ELIMINAR USUARIOS
-// ════════════════════════════════════════════════════════════════════════
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function openUserModal() { document.getElementById('user-modal').style.display = 'flex'; }
 function closeUserModal() { document.getElementById('user-modal').style.display = 'none'; }
 
@@ -651,7 +705,7 @@ async function createUser() {
 
   errEl.style.display = 'none';
   if (!name || !email || !password) {
-    errEl.textContent = 'Completá todos los campos.';
+    errEl.textContent = 'CompletÃ¡ todos los campos.';
     errEl.style.display = 'block';
     return;
   }
@@ -670,7 +724,7 @@ async function createUser() {
       errEl.textContent = data.message || 'Error al crear usuario.';
       errEl.style.display = 'block';
     } else {
-      showToast(`Usuario ${name} creado ✓`);
+      showToast(`Usuario ${name} creado â`);
       closeUserModal();
       document.getElementById('u-name').value = '';
       document.getElementById('u-email').value = '';
@@ -687,7 +741,7 @@ async function createUser() {
 }
 
 async function deleteUser(id, name) {
-  if (!confirm(`¿Eliminar a ${name}?\nSe borrarán todos sus registros.`)) return;
+  if (!confirm(`Â¿Eliminar a ${name}?\nSe borrarÃ¡n todos sus registros.`)) return;
   await sb.from('tracker_shifts').delete().eq('user_id', id);
   await sb.from('tracker_users').delete().eq('id', id);
   await fetch(`/api/tracker/delete-user/${id}`, { method: 'DELETE' });
@@ -695,8 +749,8 @@ async function deleteUser(id, name) {
   loadUsersTable();
 }
 
-// ════════════════════════════════════════════════════════════════════════
-// INIT — llamado desde initAdmin() después del await
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// INIT â llamado desde initAdmin() despuÃ©s del await
   document.getElementById('admin-from').addEventListener('change', renderAdminChart);
   document.getElementById('admin-to').addEventListener('change', renderAdminChart);
 
@@ -708,6 +762,204 @@ async function deleteUser(id, name) {
 
   loadDashboard();
 } // cierre de initAdmin()
+
+// ââ GrÃ¡fico por proyecto (todos los usuarios) âââââââââââââââââââââââââââââââââ
+let adminProjectChart = null;
+
+function renderAdminProjectChart(shifts) {
+  const from = document.getElementById('admin-from').value;
+  const to   = document.getElementById('admin-to').value;
+
+  let filtered = shifts;
+  if (from) filtered = filtered.filter(s => s.fecha >= from);
+  if (to)   filtered = filtered.filter(s => s.fecha <= to);
+
+  // Agrupar por proyecto + fecha
+  const pmap = {};
+  filtered.forEach(row => {
+    const pid    = row.project_id || 'libre';
+    const pname  = row.project_name || 'Horas libres';
+    const pcolor = allProjects.find(p => p.id === row.project_id)?.color || '#94a3b8';
+    if (!pmap[pid]) pmap[pid] = { name: pname, color: pcolor, byDate: {} };
+    pmap[pid].byDate[row.fecha] = (pmap[pid].byDate[row.fecha] || 0) + row.total_horas;
+  });
+
+  const allDates = [...new Set(filtered.map(r => r.fecha))].sort();
+  const labels   = allDates.map(d => { const [,m,day] = d.split('-'); return `${day}/${m}`; });
+
+  const datasets = Object.values(pmap).map(info => ({
+    label:               info.name,
+    data:                allDates.map(d => Math.round((info.byDate[d] || 0) * 100) / 100),
+    borderColor:         info.color,
+    backgroundColor:     info.color + '33',
+    borderWidth:         2.5,
+    pointBackgroundColor: info.color,
+    pointBorderColor:    '#fff',
+    pointBorderWidth:    2,
+    pointRadius:         4,
+    pointHoverRadius:    7,
+    fill:                Object.keys(pmap).length === 1,
+    tension:             0.4
+  }));
+
+  if (adminProjectChart) adminProjectChart.destroy();
+  const canvas = document.getElementById('adminProjectChart');
+  if (!canvas) return;
+
+  Chart.defaults.color = 'rgba(255,255,255,0.65)';
+  Chart.defaults.font.family = "'Poppins', sans-serif";
+
+  adminProjectChart = new Chart(canvas.getContext('2d'), {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: 'index', intersect: false,
+          backgroundColor: 'rgba(15,23,42,0.95)',
+          titleColor: '#fff', bodyColor: '#fff',
+          borderColor: 'rgba(255,255,255,0.2)', borderWidth: 1,
+          callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}h` }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.05)' } },
+        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => v + 'h' } }
+      },
+      interaction: { mode: 'nearest', axis: 'x', intersect: false }
+    }
+  });
+
+  // Leyenda proyectos
+  const legend = document.getElementById('admin-project-legend');
+  if (!legend) return;
+  legend.innerHTML = '';
+  Object.values(pmap).forEach(info => {
+    const li = document.createElement('div'); li.className = 'legend-item';
+    li.innerHTML = `<div class="legend-dot" style="background:${info.color}"></div><span>${info.name.toLowerCase()}</span>`;
+    legend.appendChild(li);
+  });
+}
+
+
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// PROYECTOS
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+let allProjects = [];
+
+const PROJECT_COLORS = ['#38bdf8','#f472b6','#a78bfa','#34d399','#fbbf24','#fb7185','#60a5fa','#f97316','#2dd4bf','#e879f9'];
+
+async function loadProjects() {
+  const { data } = await sb.from('tracker_projects').select('*').order('created_at');
+  allProjects = data || [];
+  renderProjectsList();
+}
+
+function renderProjectsList() {
+  const container = document.getElementById('projects-list');
+  if (!container) return;
+  container.innerHTML = '';
+  allProjects.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'glass-container';
+    card.style.cssText = 'padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;';
+    const isLibre = p.id === '00000000-0000-0000-0000-000000000001';
+    card.innerHTML = `
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="width:14px;height:14px;border-radius:50%;background:${p.color};flex-shrink:0;display:inline-block;"></span>
+        <div>
+          <div style="font-weight:600;color:var(--text-primary);font-size:0.9rem;">${p.name}</div>
+          ${p.description ? `<div style="font-size:0.75rem;color:var(--text-secondary);margin-top:2px;">${p.description}</div>` : ''}
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span style="font-size:0.72rem;padding:2px 10px;border-radius:20px;border:1px solid;
+          ${p.active ? 'background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.3);color:var(--accent-green);' : 'background:rgba(248,113,113,0.1);border-color:rgba(248,113,113,0.3);color:var(--danger);'}">
+          ${p.active ? 'activo' : 'inactivo'}
+        </span>
+        ${!isLibre ? `
+          <button class="btn-optimizar" style="padding:4px 12px;font-size:0.75rem;" onclick="toggleProject('${p.id}',${!p.active})">
+            ${p.active ? 'desactivar' : 'activar'}
+          </button>
+          <button class="btn-optimizar btn-danger" style="padding:4px 12px;font-size:0.75rem;" onclick="deleteProject('${p.id}','${p.name}')">eliminar</button>
+        ` : `<span style="font-size:0.72rem;color:var(--text-secondary);">predeterminado</span>`}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function openProjectModal() {
+  document.getElementById('p-name').value = '';
+  document.getElementById('p-desc').value = '';
+  document.getElementById('p-color').value = '#38bdf8';
+  document.getElementById('project-modal-error').style.display = 'none';
+
+  // Generar presets de color
+  const presets = document.getElementById('color-presets');
+  presets.innerHTML = '';
+  PROJECT_COLORS.forEach(c => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.style.cssText = `width:24px;height:24px;border-radius:50%;background:${c};border:2px solid rgba(255,255,255,0.2);cursor:pointer;transition:transform 0.2s;`;
+    btn.onclick = () => { document.getElementById('p-color').value = c; };
+    btn.onmouseover = () => btn.style.transform = 'scale(1.2)';
+    btn.onmouseout  = () => btn.style.transform = 'scale(1)';
+    presets.appendChild(btn);
+  });
+
+  document.getElementById('project-modal').style.display = 'flex';
+}
+
+function closeProjectModal() {
+  document.getElementById('project-modal').style.display = 'none';
+}
+
+async function saveProject() {
+  const name  = document.getElementById('p-name').value.trim();
+  const desc  = document.getElementById('p-desc').value.trim();
+  const color = document.getElementById('p-color').value;
+  const errEl = document.getElementById('project-modal-error');
+  const btn   = document.getElementById('save-project-btn');
+
+  errEl.style.display = 'none';
+  if (!name) { errEl.textContent = 'El nombre del proyecto es obligatorio.'; errEl.style.display = 'block'; return; }
+
+  btn.textContent = 'creando...'; btn.disabled = true;
+
+  const { error } = await sb.from('tracker_projects').insert({
+    name, description: desc, color, active: true,
+    created_by: session.userId
+  });
+
+  if (error) {
+    errEl.textContent = 'Error al crear el proyecto: ' + error.message;
+    errEl.style.display = 'block';
+  } else {
+    showToast(`Proyecto "${name}" creado â`);
+    closeProjectModal();
+    await loadProjects();
+  }
+  btn.textContent = 'crear proyecto'; btn.disabled = false;
+}
+
+async function toggleProject(id, newState) {
+  await sb.from('tracker_projects').update({ active: newState }).eq('id', id);
+  showToast(newState ? 'Proyecto activado.' : 'Proyecto desactivado.');
+  await loadProjects();
+}
+
+async function deleteProject(id, name) {
+  if (!confirm(`Â¿Eliminar el proyecto "${name}"?\nLos turnos ya registrados mantendrÃ¡n el nombre del proyecto.`)) return;
+  const { error } = await sb.from('tracker_projects').delete().eq('id', id);
+  if (error) { showToast('Error al eliminar: ' + error.message, 'error'); return; }
+  showToast(`Proyecto "${name}" eliminado.`);
+  await loadProjects();
+}
+
 </script>
 </body>
 </html>
