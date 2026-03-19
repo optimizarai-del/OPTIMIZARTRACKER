@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>optimizar — reset sesión</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tracker-style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-wrapper">
+    <div class="glass-container auth-card" style="text-align:center;">
+      <div class="auth-logo" style="justify-content:center;margin-bottom:24px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="44" height="44"
+          fill="none" stroke="currentColor" stroke-width="7"
+          stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-blue)">
+          <path d="M 20 45 v 20 h 20 v -35"/>
+          <circle cx="20" cy="38" r="6"/>
+          <circle cx="40" cy="24" r="6"/>
+          <path d="M 40 50 l 30 -30"/>
+          <path d="M 65 55 l -15 -15"/>
+          <circle cx="65" cy="62" r="6"/>
+          <path d="M 50 20 h 20 v 20"/>
+        </svg>
+      </div>
+      <h2 style="color:var(--accent-blue);margin-bottom:8px;font-size:1.1rem;">reset de sesión</h2>
+      <p style="font-size:0.88rem;margin-bottom:24px;">Limpiá la sesión cacheada y volvé al login.</p>
+      <div id="status" style="margin-bottom:16px;"></div>
+      <button onclick="resetAndLogin()" class="btn-optimizar btn-primary btn-full" style="margin-bottom:12px;">
+        🔄 limpiar sesión e ir al login
+      </button>
+      <button onclick="window.location.href='tracker-admin.html'" class="btn-optimizar btn-full">
+        → ir directo al admin
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const status = document.getElementById('status');
+
+    function resetAndLogin() {
+      // Limpiar absolutamente todo lo relacionado al tracker
+      localStorage.removeItem('optimizar_tracker_session');
+      // Limpiar también cualquier sesión de Supabase cacheada
+      Object.keys(localStorage).forEach(k => {
+        if (k.includes('supabase') || k.includes('sb-')) {
+          localStorage.removeItem(k);
+        }
+      });
+      status.innerHTML = '<p style="color:var(--accent-green);font-size:0.85rem;">✓ sesión limpiada. Redirigiendo al login...</p>';
+      setTimeout(() => { window.location.href = 'index.html'; }, 1200);
+    }
+
+    // Mostrar el rol actual si hay sesión
+    const raw = localStorage.getItem('optimizar_tracker_session');
+    if (raw) {
+      try {
+        const s = JSON.parse(raw);
+        status.innerHTML = `<p style="font-size:0.82rem;color:var(--accent-amber);">
+          sesión actual: <b>${s.email}</b> — rol: <b>${s.role}</b>
+        </p>`;
+      } catch(e) {}
+    } else {
+      status.innerHTML = '<p style="font-size:0.82rem;color:var(--text-secondary);">no hay sesión activa.</p>';
+    }
+  </script>
+</body>
+</html>

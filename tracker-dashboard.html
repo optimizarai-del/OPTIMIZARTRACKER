@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>optimizar â mi tracker</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tracker-style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="tracker-config.js"></script>
+  <script src="tracker-auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header class="glass-container top-nav">
+  <div class="logo-area">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="36" height="36"
+      fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"
+      style="color:var(--accent-blue)">
+      <path d="M 20 45 v 20 h 20 v -35"/>
+      <circle cx="20" cy="38" r="6"/>
+      <circle cx="40" cy="24" r="6"/>
+      <path d="M 40 50 l 30 -30"/>
+      <path d="M 65 55 l -15 -15"/>
+      <circle cx="65" cy="62" r="6"/>
+      <path d="M 50 20 h 20 v 20"/>
+    </svg>
+    <div>
+      <h1 style="font-size:1.4rem;text-transform:lowercase;letter-spacing:-0.5px;">optimizar tracker</h1>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <span class="nav-timer" id="nav-timer" style="display:none;">00:00:00</span>
+    <span id="user-greeting" style="font-size:0.85rem;color:var(--text-secondary);"></span>
+    <button onclick="trackerLogout()" class="btn-optimizar" style="padding:8px 18px;font-size:0.85rem;">salir</button>
+  </div>
+</header>
+
+<div class="tracker-layout">
+
+  <!-- TURNO + SELECTOR DE PROYECTO -->
+  <div class="glass-container turno-hero">
+    <div class="turno-info">
+      <h2 id="turno-title">Â¿listo para empezar?</h2>
+      <p id="turno-sub">seleccionÃ¡ un proyecto y presionÃ¡ el botÃ³n para iniciar</p>
+    </div>
+    <div class="turno-actions" style="flex-direction:column;align-items:flex-end;gap:12px;">
+
+      <!-- Selector (visible cuando no hay turno) -->
+      <div id="project-selector-wrap" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+        <label style="font-size:0.78rem;font-weight:600;color:var(--accent-blue);white-space:nowrap;">proyecto:</label>
+        <div style="position:relative;">
+          <select id="project-select" class="glass-input"
+            style="min-width:200px;font-size:0.88rem;padding:8px 36px 8px 14px;background:rgba(30,10,60,0.5);cursor:pointer;appearance:none;">
+            <option value="">cargando...</option>
+          </select>
+          <span id="project-color-dot"
+            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:#94a3b8;pointer-events:none;"></span>
+        </div>
+      </div>
+
+      <!-- Badge proyecto activo (visible durante el turno) -->
+      <div id="active-project-badge" style="display:none;align-items:center;gap:8px;">
+        <span id="active-project-dot" style="width:10px;height:10px;border-radius:50%;flex-shrink:0;background:#94a3b8;"></span>
+        <span id="active-project-name" style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);"></span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div id="timer-display" style="font-size:1.8rem;font-weight:800;color:var(--accent-green);font-variant-numeric:tabular-nums;letter-spacing:3px;display:none;">00:00:00</div>
+        <button class="btn-turno" id="btn-turno" onclick="handleTurno()">
+          <span id="turno-icon">â¶</span>
+          <span id="turno-label">empezar turno</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRÃFICO -->
+  <div class="glass-container chart-section">
+    <div class="chart-section-header" style="flex-wrap:wrap;gap:12px;">
+      <h3 style="color:var(--accent-blue);font-size:0.85rem;text-transform:lowercase;letter-spacing:0.05em;">â± horas por dÃ­a y proyecto</h3>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input type="date" id="chart-from" class="glass-input" style="width:140px;font-size:0.8rem;padding:6px 10px;">
+        <span style="color:var(--text-secondary);font-size:0.8rem;">â</span>
+        <input type="date" id="chart-to" class="glass-input" style="width:140px;font-size:0.8rem;padding:6px 10px;">
+      </div>
+    </div>
+    <div class="chart-legend" id="chart-projects-legend" style="margin-bottom:10px;"></div>
+    <div class="chart-wrap"><canvas id="hoursChart"></canvas></div>
+  </div>
+
+  <!-- CALENDARIO -->
+  <div class="glass-container calendar-section">
+    <div class="calendar-nav">
+      <button class="btn-optimizar" style="padding:6px 14px;font-size:0.8rem;" onclick="changeMonth(-1)">â anterior</button>
+      <h3 id="cal-month-label"></h3>
+      <button class="btn-optimizar" style="padding:6px 14px;font-size:0.8rem;" onclick="changeMonth(1)">siguiente â</button>
+    </div>
+    <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+
+  <!-- DETALLE DÃA -->
+  <div class="glass-container day-detail-card" id="day-detail" style="display:none;">
+    <div class="day-detail-header">
+      <h3 id="day-detail-title" style="color:var(--accent-blue);"></h3>
+      <button onclick="document.getElementById('day-detail').style.display='none'"
+        class="btn-optimizar" style="padding:5px 14px;font-size:0.8rem;">â cerrar</button>
+    </div>
+    <div class="day-stat-row" id="day-stats-row"></div>
+    <div class="entries-list" id="day-entries-list"></div>
+  </div>
+
+</div>
+
+<!-- MODAL TURNO -->
+<div id="modal-turno" class="modal-overlay" style="display:none;">
+  <div class="glass-container modal-card">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span id="modal-project-dot" style="width:12px;height:12px;border-radius:50%;background:#94a3b8;flex-shrink:0;"></span>
+        <h3 style="color:var(--accent-green);">â turno en curso</h3>
+      </div>
+      <button onclick="closeModal()" class="btn-optimizar" style="padding:6px 14px;font-size:0.85rem;">minimizar â</button>
+    </div>
+    <p id="modal-project-label" style="font-size:0.78rem;color:var(--text-secondary);margin-bottom:14px;margin-top:-4px;"></p>
+
+    <div class="modal-timer-display" id="modal-timer">00:00:00</div>
+
+    <div style="margin-bottom:14px;">
+      <label class="input-label">Â¿quÃ© estÃ¡s haciendo ahora? (opcional)</label>
+      <textarea id="entry-desc" class="glass-input" rows="3"
+        placeholder="describÃ­ el avance, tarea o actividad..."></textarea>
+    </div>
+    <div style="margin-bottom:14px;">
+      <label class="input-label">dudas o bloqueos (opcional)</label>
+      <textarea id="entry-doubt" class="glass-input" rows="2"
+        placeholder="si algo te estÃ¡ bloqueando, escribilo acÃ¡..."></textarea>
+    </div>
+
+    <div class="upload-area" onclick="document.getElementById('file-input').click()">
+      <input type="file" id="file-input" accept="image/*" multiple style="display:none;" onchange="handleFileSelect(event)">
+      <div style="font-size:1.5rem;margin-bottom:4px;">ð</div>
+      <p style="font-size:0.85rem;">adjuntÃ¡ capturas de pantalla</p>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);">JPG, PNG Â· mÃ¡x 5MB c/u</p>
+    </div>
+    <div class="preview-grid" id="preview-grid"></div>
+
+    <div class="modal-actions">
+      <button class="btn-optimizar" onclick="saveEntry()" style="padding:10px 24px;">ð¾ guardar avance</button>
+      <button class="btn-optimizar btn-danger" onclick="finalizarTurno()" style="padding:10px 24px;">â¹ finalizar turno</button>
+    </div>
+    <div id="saved-entries-modal" style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"></div>
+  </div>
+</div>
+
+<script>
+let session = null, sb = null;
+let timerInterval = null, turnoActivo = false;
+let uploadedImages = [], currentEntries = [];
+let chartInstance = null, calendarData = {};
+let currentCalMonth = new Date().getMonth();
+let currentCalYear = new Date().getFullYear();
+let projects = [];
+
+const TURNO_KEY = 'optimizar_turno_activo';
+const DIAS  = ['dom','lun','mar','miÃ©','jue','vie','sÃ¡b'];
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+// ââ INIT ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(async () => {
+  session = await requireTrackerAuth(['user','admin']);
+  if (!session) return;
+  sb = getSupabase();
+  document.getElementById('user-greeting').textContent =
+    `hola, ${session.name.split(' ')[0].toLowerCase()} ð`;
+
+  await loadProjects();
+  restaurarTurnoSiExiste();
+
+  document.getElementById('chart-from').addEventListener('change', loadData);
+  document.getElementById('chart-to').addEventListener('change', loadData);
+  document.getElementById('project-select').addEventListener('change', updateProjectDot);
+
+  const toDate = new Date(), fromDate = new Date();
+  fromDate.setDate(fromDate.getDate() - 30);
+  document.getElementById('chart-from').value = fromDate.toISOString().split('T')[0];
+  document.getElementById('chart-to').value   = toDate.toISOString().split('T')[0];
+  loadData();
+})();
+
+// ââ PROYECTOS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+async function loadProjects() {
+  const { data } = await sb.from('tracker_projects').select('*').eq('active', true).order('created_at');
+  projects = data || [];
+  const sel = document.getElementById('project-select');
+  sel.innerHTML = '';
+  projects.forEach(p => {
+    const o = document.createElement('option');
+    o.value = p.id; o.textContent = p.name; o.dataset.color = p.color;
+    sel.appendChild(o);
+  });
+  updateProjectDot();
+}
+
+function updateProjectDot() {
+  const sel = document.getElementById('project-select');
+  const color = sel.options[sel.selectedIndex]?.dataset?.color || '#94a3b8';
+  document.getElementById('project-color-dot').style.background = color;
+}
+
+function getSelectedProject() {
+  const id = document.getElementById('project-select').value;
+  return projects.find(p => p.id === id) || null;
+}
+
+function getProjectColor(projectId) {
+  return projects.find(p => p.id === projectId)?.color || '#94a3b8';
+}
+
+// ââ TIMER âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function formatTime(s) {
+  return [Math.floor(s/3600), Math.floor((s%3600)/60), s%60]
+    .map(n => String(n).padStart(2,'0')).join(':');
+}
+
+function tickTimer() {
+  const d = JSON.parse(localStorage.getItem(TURNO_KEY) || 'null');
+  if (!d) return;
+  const t = formatTime(Math.floor((Date.now() - d.startMs) / 1000));
+  ['modal-timer','nav-timer','timer-display'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = t;
+  });
+}
+
+function getSegundosActuales() {
+  const d = JSON.parse(localStorage.getItem(TURNO_KEY) || 'null');
+  return d ? Math.floor((Date.now() - d.startMs) / 1000) : 0;
+}
+
+function getTurnoStart() {
+  const d = JSON.parse(localStorage.getItem(TURNO_KEY) || 'null');
+  return d ? new Date(d.startMs) : new Date();
+}
+
+function guardarEstadoTurno(entries) {
+  const d = JSON.parse(localStorage.getItem(TURNO_KEY) || 'null');
+  if (!d) return;
+  d.entries = entries;
+  localStorage.setItem(TURNO_KEY, JSON.stringify(d));
+}
+
+// ââ RESTAURAR TURNO âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function restaurarTurnoSiExiste() {
+  const d = JSON.parse(localStorage.getItem(TURNO_KEY) || 'null');
+  if (!d) return;
+  turnoActivo = true;
+  currentEntries = d.entries || [];
+
+  const project = projects.find(p => p.id === d.projectId);
+  activarUITurno(new Date(d.startMs), project);
+
+  const container = document.getElementById('saved-entries-modal');
+  currentEntries.forEach(e => {
+    const t = new Date(e.timestamp);
+    const div = document.createElement('div'); div.className = 'entry-card';
+    div.innerHTML = `
+      <div class="entry-card-header">
+        <span class="entry-time">${t.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}</span>
+        <span class="entry-duration">${formatTime(e.elapsedSecs||0)}</span>
+      </div>
+      <p class="entry-desc">${e.desc||'(sin descripciÃ³n)'}</p>
+      ${e.doubt ? `<div class="entry-doubt">${e.doubt}</div>` : ''}
+    `;
+    container.appendChild(div);
+  });
+
+  timerInterval = setInterval(tickTimer, 1000);
+  tickTimer();
+}
+
+function activarUITurno(inicio, project) {
+  document.getElementById('btn-turno').classList.add('activo');
+  document.getElementById('turno-icon').textContent = 'âº';
+  document.getElementById('turno-label').textContent = 'turno activo â ver panel';
+  document.getElementById('turno-title').textContent = 'turno en curso';
+  document.getElementById('turno-sub').textContent =
+    `iniciado a las ${inicio.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}`;
+  document.getElementById('nav-timer').style.display = 'block';
+  document.getElementById('nav-timer').classList.add('running');
+  document.getElementById('timer-display').style.display = 'block';
+  document.getElementById('project-selector-wrap').style.display = 'none';
+
+  if (project) {
+    document.getElementById('active-project-dot').style.background = project.color;
+    document.getElementById('active-project-name').textContent = project.name.toLowerCase();
+    document.getElementById('active-project-badge').style.display = 'flex';
+    document.getElementById('modal-project-dot').style.background = project.color;
+    document.getElementById('modal-project-label').textContent = `proyecto: ${project.name.toLowerCase()}`;
+    document.getElementById('modal-project-label').style.color = project.color;
+  }
+}
+
+// ââ INICIAR / ABRIR TURNO ââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function handleTurno() {
+  if (!turnoActivo) iniciarTurno(); else openModal();
+}
+
+function iniciarTurno() {
+  const project = getSelectedProject();
+  if (!project) { showToast('SeleccionÃ¡ un proyecto antes de iniciar', 'error'); return; }
+
+  turnoActivo = true;
+  currentEntries = [];
+  uploadedImages = [];
+  document.getElementById('saved-entries-modal').innerHTML = '';
+
+  const startMs = Date.now();
+  localStorage.setItem(TURNO_KEY, JSON.stringify({
+    startMs,
+    projectId:    project.id,
+    projectName:  project.name,
+    projectColor: project.color,
+    entries: []
+  }));
+
+  timerInterval = setInterval(tickTimer, 1000);
+  tickTimer();
+  activarUITurno(new Date(startMs), project);
+  openModal();
+}
+
+function openModal() { document.getElementById('modal-turno').style.display = 'flex'; }
+function closeModal() { document.getElementById('modal-turno').style.display = 'none'; }
+
+// ââ IMÃGENES ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function handleFileSelect(e) {
+  Array.from(e.target.files).forEach(file => {
+    if (file.size > 5*1024*1024) { showToast('Imagen muy grande (mÃ¡x 5MB)','error'); return; }
+    const reader = new FileReader();
+    reader.onload = ev => { uploadedImages.push({file, base64: ev.target.result}); renderPreviews(); };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+
+function renderPreviews() {
+  const grid = document.getElementById('preview-grid');
+  grid.innerHTML = '';
+  uploadedImages.forEach((img, i) => {
+    const div = document.createElement('div'); div.className = 'preview-img';
+    div.innerHTML = `<img src="${img.base64}" alt="preview"><button onclick="removeImage(${i})">â</button>`;
+    grid.appendChild(div);
+  });
+}
+
+function removeImage(i) { uploadedImages.splice(i,1); renderPreviews(); }
+
+// ââ GUARDAR AVANCE ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+async function saveEntry() {
+  const desc = document.getElementById('entry-desc').value.trim();
+  if (!desc) { showToast('DescribÃ­ el avance antes de guardar','error'); return; }
+
+  const ahora = new Date();
+  const entry = {
+    timestamp:   ahora.toISOString(),
+    desc,
+    doubt:       document.getElementById('entry-doubt').value.trim(),
+    images:      uploadedImages.map(i => i.base64),
+    elapsedSecs: getSegundosActuales()
+  };
+  currentEntries.push(entry);
+  guardarEstadoTurno(currentEntries);
+
+  const container = document.getElementById('saved-entries-modal');
+  const div = document.createElement('div'); div.className = 'entry-card';
+  div.innerHTML = `
+    <div class="entry-card-header">
+      <span class="entry-time">${ahora.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}</span>
+      <span class="entry-duration">${formatTime(entry.elapsedSecs)}</span>
+    </div>
+    <p class="entry-desc">${entry.desc}</p>
+    ${entry.doubt ? `<div class="entry-doubt">${entry.doubt}</div>` : ''}
+    ${entry.images.length ? `<div class="entry-img-grid">${entry.images.map(s=>`<img src="${s}" onclick="openLightbox('${s}')">`).join('')}</div>` : ''}
+  `;
+  container.appendChild(div);
+
+  document.getElementById('entry-desc').value = '';
+  document.getElementById('entry-doubt').value = '';
+  uploadedImages = [];
+  renderPreviews();
+  showToast('Avance guardado â');
+}
+
+// ââ FINALIZAR TURNO âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+async function finalizarTurno() {
+  clearInterval(timerInterval);
+  turnoActivo = false;
+
+  const fin          = new Date();
+  const segs         = getSegundosActuales();
+  const totalHoras   = segs / 3600;
+  const turnoStart   = getTurnoStart();
+  const fechaLocal   = turnoStart.toISOString().split('T')[0];
+  const turnoData    = JSON.parse(localStorage.getItem(TURNO_KEY) || '{}');
+
+  // Subir imÃ¡genes
+  const entriesParaGuardar = [];
+  for (const entry of currentEntries) {
+    const urls = [];
+    for (const b64 of entry.images) {
+      try {
+        const blob = await fetch(b64).then(r=>r.blob());
+        const ext  = blob.type.split('/')[1] || 'jpg';
+        const name = `${session.userId}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+        const { error } = await sb.storage.from('tracker-captures').upload(name, blob, {contentType: blob.type});
+        if (!error) {
+          const { data: u } = sb.storage.from('tracker-captures').getPublicUrl(name);
+          urls.push(u.publicUrl);
+        }
+      } catch(e) { urls.push(b64); }
+    }
+    entriesParaGuardar.push({...entry, images: urls});
+  }
+
+  const { error } = await sb.from('tracker_shifts').insert({
+    user_id:      session.userId,
+    fecha:        fechaLocal,
+    inicio:       turnoStart.toISOString(),
+    fin:          fin.toISOString(),
+    total_segundos: segs,
+    total_horas:  Math.round(totalHoras*100)/100,
+    entradas:     entriesParaGuardar,
+    project_id:   turnoData.projectId   || null,
+    project_name: turnoData.projectName || ''
+  });
+
+  if (error) {
+    console.error(error);
+    showToast('Error al guardar. ReintentÃ¡.','error');
+    turnoActivo = true;
+    timerInterval = setInterval(tickTimer, 1000);
+    return;
+  }
+
+  localStorage.removeItem(TURNO_KEY);
+
+  // Reset UI
+  closeModal();
+  document.getElementById('btn-turno').classList.remove('activo');
+  document.getElementById('turno-icon').textContent  = 'â¶';
+  document.getElementById('turno-label').textContent = 'empezar turno';
+  document.getElementById('turno-title').textContent = 'Â¿listo para el prÃ³ximo turno?';
+  document.getElementById('turno-sub').textContent   =
+    `Ãºltimo turno: ${formatTime(segs)} â ${fin.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}`;
+  document.getElementById('nav-timer').style.display = 'none';
+  document.getElementById('nav-timer').classList.remove('running');
+  document.getElementById('timer-display').style.display = 'none';
+  document.getElementById('saved-entries-modal').innerHTML = '';
+  document.getElementById('active-project-badge').style.display = 'none';
+  document.getElementById('project-selector-wrap').style.display = 'flex';
+  currentEntries = [];
+
+  showToast(`Turno finalizado. ${Math.round(totalHoras*100)/100}h registradas â`);
+  await loadData();
+}
+
+// ââ CARGAR DATOS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+async function loadData() {
+  const { data, error } = await sb
+    .from('tracker_shifts').select('*')
+    .eq('user_id', session.userId).order('fecha');
+  if (error) { console.error(error); return; }
+
+  calendarData = {};
+  (data||[]).forEach(row => {
+    if (!calendarData[row.fecha]) calendarData[row.fecha] = { horas:0, entradas:[], shifts:[] };
+    calendarData[row.fecha].horas += row.total_horas;
+    calendarData[row.fecha].entradas.push(...(row.entradas||[]));
+    calendarData[row.fecha].shifts.push(row);
+  });
+  renderChart(data||[]);
+  renderCalendar();
+}
+
+// ââ GRÃFICO POR PROYECTO ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderChart(rows) {
+  const from = document.getElementById('chart-from').value;
+  const to   = document.getElementById('chart-to').value;
+  let filtered = rows;
+  if (from) filtered = filtered.filter(r => r.fecha >= from);
+  if (to)   filtered = filtered.filter(r => r.fecha <= to);
+
+  const allDates = [...new Set(filtered.map(r=>r.fecha))].sort();
+  const labels   = allDates.map(d => { const [,m,day]=d.split('-'); return `${day}/${m}`; });
+
+  // Agrupar por proyecto
+  const pmap = {};
+  filtered.forEach(row => {
+    const pid    = row.project_id || 'libre';
+    const pname  = row.project_name || 'Horas libres';
+    const pcolor = getProjectColor(row.project_id);
+    if (!pmap[pid]) pmap[pid] = { name: pname, color: pcolor, byDate: {} };
+    pmap[pid].byDate[row.fecha] = (pmap[pid].byDate[row.fecha]||0) + row.total_horas;
+  });
+
+  const datasets = Object.values(pmap).map(info => ({
+    label:              info.name,
+    data:               allDates.map(d => Math.round((info.byDate[d]||0)*100)/100),
+    borderColor:        info.color,
+    backgroundColor:    info.color + '33',
+    borderWidth:        2.5,
+    pointBackgroundColor: info.color,
+    pointBorderColor:   '#fff',
+    pointBorderWidth:   2,
+    pointRadius:        4,
+    pointHoverRadius:   7,
+    fill:               Object.keys(pmap).length === 1,
+    tension:            0.4
+  }));
+
+  if (chartInstance) chartInstance.destroy();
+  const ctx = document.getElementById('hoursChart').getContext('2d');
+  Chart.defaults.color = 'rgba(255,255,255,0.65)';
+  Chart.defaults.font.family = "'Poppins', sans-serif";
+
+  chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: 'index', intersect: false,
+          backgroundColor: 'rgba(15,23,42,0.95)',
+          titleColor: '#fff', bodyColor: '#fff',
+          borderColor: 'rgba(255,255,255,0.2)', borderWidth: 1, padding: 10,
+          callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}h` }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.05)' } },
+        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v=>v+'h' } }
+      },
+      interaction: { mode: 'nearest', axis: 'x', intersect: false },
+      onClick: (e, els) => { if (els.length>0) openDayDetail(allDates[els[0].index]); }
+    }
+  });
+
+  // Leyenda
+  const legend = document.getElementById('chart-projects-legend');
+  legend.innerHTML = '';
+  Object.values(pmap).forEach(info => {
+    const li = document.createElement('div'); li.className = 'legend-item';
+    li.innerHTML = `<div class="legend-dot" style="background:${info.color}"></div><span>${info.name.toLowerCase()}</span>`;
+    legend.appendChild(li);
+  });
+}
+
+// ââ CALENDARIO ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function changeMonth(delta) {
+  currentCalMonth += delta;
+  if (currentCalMonth > 11) { currentCalMonth=0; currentCalYear++; }
+  if (currentCalMonth < 0)  { currentCalMonth=11; currentCalYear--; }
+  renderCalendar();
+}
+
+function renderCalendar() {
+  document.getElementById('cal-month-label').textContent = `${MESES[currentCalMonth]} ${currentCalYear}`;
+  const grid = document.getElementById('calendar-grid');
+  grid.innerHTML = '';
+  DIAS.forEach(d => { const h=document.createElement('div'); h.className='cal-header'; h.textContent=d; grid.appendChild(h); });
+
+  const firstDay    = new Date(currentCalYear, currentCalMonth, 1).getDay();
+  const daysInMonth = new Date(currentCalYear, currentCalMonth+1, 0).getDate();
+  const today       = new Date().toISOString().split('T')[0];
+
+  for (let i=0; i<firstDay; i++) {
+    const b=document.createElement('div'); b.className='cal-day empty'; grid.appendChild(b);
+  }
+  for (let d=1; d<=daysInMonth; d++) {
+    const ds = `${currentCalYear}-${String(currentCalMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dd = calendarData[ds];
+    const cell = document.createElement('div');
+    cell.className = 'cal-day' + (dd?' has-data':'') + (ds===today?' today':'');
+
+    let dots = '';
+    if (dd?.shifts) {
+      const seen = new Set();
+      dd.shifts.forEach(s => {
+        const pid = s.project_id || 'libre';
+        if (!seen.has(pid)) {
+          seen.add(pid);
+          dots += `<span style="width:5px;height:5px;border-radius:50%;background:${getProjectColor(s.project_id)};display:inline-block;margin:0 1px;"></span>`;
+        }
+      });
+    }
+
+    cell.innerHTML = `
+      <span>${d}</span>
+      ${dd ? `<div style="display:flex;justify-content:center;margin-top:1px;">${dots}</div><div class="cal-hours">${Math.round(dd.horas*10)/10}h</div>` : ''}
+    `;
+    if (dd) cell.onclick = () => openDayDetail(ds);
+    grid.appendChild(cell);
+  }
+}
+
+// ââ DETALLE DÃA âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function openDayDetail(ds) {
+  const data = calendarData[ds];
+  if (!data) return;
+  const [y,m,d] = ds.split('-');
+  document.getElementById('day-detail-title').textContent =
+    `${parseInt(d)} de ${MESES[parseInt(m)-1]} ${y}`;
+
+  document.getElementById('day-stats-row').innerHTML = `
+    <div class="day-stat"><div class="label">horas totales</div><div class="value">${Math.round(data.horas*100)/100}h</div></div>
+    <div class="day-stat"><div class="label">avances registrados</div><div class="value">${data.entradas.length}</div></div>
+  `;
+
+  const list = document.getElementById('day-entries-list');
+  list.innerHTML = '';
+
+  (data.shifts||[]).forEach(shift => {
+    const color = getProjectColor(shift.project_id);
+    const pname = shift.project_name || 'Horas libres';
+
+    const header = document.createElement('div');
+    header.style.cssText = 'display:flex;align-items:center;gap:8px;margin:14px 0 8px;';
+    header.innerHTML = `
+      <span style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></span>
+      <span style="font-size:0.82rem;font-weight:600;color:${color};">${pname.toLowerCase()}</span>
+      <span style="font-size:0.75rem;color:var(--text-secondary);">â ${shift.total_horas}h</span>
+    `;
+    list.appendChild(header);
+
+    if (!shift.entradas?.length) {
+      const p = document.createElement('p');
+      p.style.cssText = 'color:var(--text-secondary);font-size:0.82rem;margin-left:18px;';
+      p.textContent = 'sin avances registrados en este turno.';
+      list.appendChild(p);
+    } else {
+      shift.entradas.forEach(e => {
+        const t = new Date(e.timestamp);
+        const div = document.createElement('div');
+        div.className = 'entry-card';
+        div.style.borderLeft = `3px solid ${color}`;
+        div.innerHTML = `
+          <div class="entry-card-header">
+            <span class="entry-time">${t.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}</span>
+            <span class="entry-duration">${formatTime(e.elapsedSecs||0)}</span>
+          </div>
+          <p class="entry-desc">${e.desc}</p>
+          ${e.doubt ? `<div class="entry-doubt">${e.doubt}</div>` : ''}
+          ${(e.images||[]).length ? `<div class="entry-img-grid">${e.images.map(s=>`<img src="${s}" onclick="openLightbox('${s}')">`).join('')}</div>` : ''}
+        `;
+        list.appendChild(div);
+      });
+    }
+  });
+
+  const detail = document.getElementById('day-detail');
+  detail.style.display = 'block';
+  detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
